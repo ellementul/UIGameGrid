@@ -11,9 +11,14 @@ Example:
   Left: 5 = 5 cells from left side of window for left side of box
   Left: -5 = 5 cells from right side of window for left side of box
 ## Use
+### Create grid
+```js
+const grid = new Grid() // Default 20 cells on base side
+```
+
 ### Top-left angle 4x4
 ```js
-window.Grid.createBox({
+grid.createBox({
   top: 0,
   left: 0,
   right: -4,
@@ -22,7 +27,7 @@ window.Grid.createBox({
 ```
 ### Bottom-left angle 4x4
 ```js
-window.Grid.createBox({
+grid.createBox({
   top: -4,
   left: 0,
   right: -4,
