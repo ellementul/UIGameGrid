@@ -14,18 +14,18 @@ Example:
 ### Top-left angle 4x4
 ```js
 window.Grid.createBox({
-  top: 0
-  left: 0
-  right: -4
+  top: 0,
+  left: 0,
+  right: -4,
   bottom: -4
 })
 ```
 ### Bottom-left angle 4x4
 ```js
 window.Grid.createBox({
-  top: -4
-  left: 0
-  right: -4
+  top: -4,
+  left: 0,
+  right: -4,
   bottom: 0
 })
 ```
