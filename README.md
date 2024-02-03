@@ -29,6 +29,6 @@ window.Grid.createBox({
   bottom: 0
 })
 ```
-### Fixed and strench
+### Fixed and strench size of box
 If you use only negative distances, box will be stretched proportionally to the screen in diffrent resolutions
 If you use only positive distances, box will not change size in diffrent resolutions
