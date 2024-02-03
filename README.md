@@ -14,6 +14,7 @@ Example:
 ### Create grid
 ```js
 const grid = new Grid() // Default 20 cells on base side
+const grid = new Grid(30) // 30 cells on base side
 ```
 
 ### Top-left angle 4x4
