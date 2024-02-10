@@ -1,0 +1,26 @@
+{
+  "name": "ui-game-grid",
+  "version": "0.0.1",
+  "description": "Interface Grid for games",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ellementul/UIGameGrid.git"
+  },
+  "keywords": [
+    "UI",
+    "Game"
+  ],
+  "author": "Ellementul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ellementul/UIGameGrid/issues"
+  },
+  "homepage": "https://github.com/ellementul/UIGameGrid#readme",
+  "devDependencies": {
+    "node-static": "^0.7.11"
+  }
+}
