@@ -1,15 +1,26 @@
 # UIGameGrid
 
 ## Description
-Grid for postion of box.
+Grid for postion of boxes.
+
 Minimal side of grid is base side.
-Base side can be 20 cells or 30 cells of lenght
+
+Base side can be 20 cells or 30 cells of lenght.
+
 Each side of box has fixed distance from side of window.
-Distance has to be Integer type
-Negative distance from opposite side
+
+Distance has to be Integer type.
+
+Negative distance from opposite side.
+
 Example:
-  Left: 5 = 5 cells from left side of window for left side of box
-  Left: -5 = 5 cells from right side of window for left side of box
+
+    Left: 5 = 5 cells from left side of window for left side of box
+  
+    Left: -5 = 5 cells from right side of window for left side of box
+
+With "Centred" option you can use only positive distance.
+
 ## Use
 ### Create grid
 ```js
@@ -35,6 +46,14 @@ grid.createBox({
   bottom: 0
 })
 ```
-### Fixed and strench size of box
-If you use only negative distances, box will be stretched proportionally to the screen in diffrent resolutions
-If you use only positive distances, box will not change size in diffrent resolutions
+
+### Centered box 6x6
+```js
+grid.createBox({
+  top: 3,
+  left: 3,
+  right: 3,
+  bottom: 3,
+  centred: true
+})
+```
