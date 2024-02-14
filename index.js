@@ -5,13 +5,14 @@ class Grid {
       height: 0,
       width: 0
     }
+    this.boxes = new Map
+
     this.computeCells()
 
     window.addEventListener("resize", () => {
       this.computeCells()
-      console.log(this.cell)
+      this.updateBoxes()
     })
-    console.log(this.cell)
   }
 
   computeCells() {
@@ -22,15 +23,60 @@ class Grid {
  
     this.cell[otherSide] = window.screen[otherSide] / Math.floor(window.screen[otherSide] / this.cell[baseSide])
   }
+
+  createBox({ name, top, right, bottom, left, centred }) {
+    name ||= "Box" + this.boxes.size
+    if(this.boxes.has(name))
+      throw new Error(`Box with name "${name}" is existed already!`)
+
+    this.boxes.set(name, new Box({ 
+      cellWidth: this.cell.width,
+      cellHeight: this.cell.height
+    }, { 
+      top, 
+      right, 
+      bottom, 
+      left, 
+      centred
+    }))
+
+    return this.boxes.get(name)
+  }
+
+  updateBoxes() {
+    for (const [name, box] of this.boxes) {
+      box.updateSize({
+        cellWidth: this.cell.width,
+        cellHeight: this.cell.height
+      })
+    }
+  }
 }
 
 class Box {
   constructor({ cellWidth, cellHeight }, { top, right, bottom, left, centred = false }) {
+    this.element = document.createElement("div")
+    this.element.style.position = "absolute"
+    this.limits = { top, right, bottom, left, centred }
+    document.body.appendChild(this.element)
 
+    this.updateSize({ cellWidth, cellHeight })
+
+    const randomColor = Math.floor(Math.random()*16777215).toString(16)
+    this.element.style.backgroundColor = "#" + randomColor
   }
 
   updateSize({ cellWidth, cellHeight }) {
+    const x1 = this.limits.left >= 0 ? this.limits.left * cellWidth : window.screen.width + this.limits.left * cellWidth
+    const x2 = this.limits.right >= 0 ? window.screen.width - this.limits.right * cellWidth : -1 * this.limits.right * cellWidth
+    const y1 = this.limits.top >= 0 ? this.limits.top * cellHeight : window.screen.height + this.limits.top * cellHeight
+    const y2 = this.limits.bottom >= 0 ? window.screen.height - this.limits.bottom * cellHeight : -1 * this.limits.bottom * cellHeight
 
+    console.log(x1, x2)
+    this.element.style.width = (x2 - x1) + "px"
+    this.element.style.height = (y2 - y1) + "px"
+    this.element.style.top = y1 + "px"
+    this.element.style.left = x1 + "px"
   }
 }
 

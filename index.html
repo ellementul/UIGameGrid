@@ -5,6 +5,34 @@
     <script type="module">
       import { Grid } from "./index.js"
       const grid = new Grid()
+      grid.createBox({
+        name: "leftBottomAngle",
+        left: 0,
+        right: -6,
+        top: -6,
+        bottom: 0
+      })
+      grid.createBox({
+        name: "rightBottomAngle",
+        left: -6,
+        right: 0,
+        top: -6,
+        bottom: 0
+      })
+      grid.createBox({
+        name: "bottomPanel",
+        left: 6,
+        right: 6,
+        top: -6,
+        bottom: 0
+      })
+      grid.createBox({
+        name: "topPanel",
+        left: 4,
+        right: 4,
+        top: 0,
+        bottom: -4
+      })
     </script>
   </body>
 </html>
