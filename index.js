@@ -57,7 +57,8 @@ class Box {
   constructor({ cellWidth, cellHeight }, { top, right, bottom, left, centred = false }) {
     this.element = document.createElement("div")
     this.element.style.position = "absolute"
-    this.limits = { top, right, bottom, left, centred }
+    this.limits = { top, right, bottom, left }
+    this.centred = centred
     document.body.appendChild(this.element)
 
     this.updateSize({ cellWidth, cellHeight })
@@ -67,16 +68,36 @@ class Box {
   }
 
   updateSize({ cellWidth, cellHeight }) {
+    if(this.centred)
+      return this.updateByCenter({ cellWidth, cellHeight })
+
     const x1 = this.limits.left >= 0 ? this.limits.left * cellWidth : window.screen.width + this.limits.left * cellWidth
     const x2 = this.limits.right >= 0 ? window.screen.width - this.limits.right * cellWidth : -1 * this.limits.right * cellWidth
     const y1 = this.limits.top >= 0 ? this.limits.top * cellHeight : window.screen.height + this.limits.top * cellHeight
     const y2 = this.limits.bottom >= 0 ? window.screen.height - this.limits.bottom * cellHeight : -1 * this.limits.bottom * cellHeight
 
-    console.log(x1, x2)
     this.element.style.width = (x2 - x1) + "px"
     this.element.style.height = (y2 - y1) + "px"
     this.element.style.top = y1 + "px"
     this.element.style.left = x1 + "px"
+  }
+
+  updateByCenter({ cellWidth, cellHeight }) {
+    const cx = window.screen.width / 2
+    const cy = window.screen.height / 2
+
+    this.element.style.width = ((this.limits.left + this.limits.right) * cellWidth) + "px"
+    this.element.style.height = ((this.limits.top + this.limits.bottom) * cellHeight) + "px"
+    this.element.style.left = (cx - this.limits.left * cellWidth) + "px"
+    this.element.style.top = (cy - this.limits.top * cellHeight) + "px"
+  }
+
+  hidden(){
+    this.element.style.display = "none"
+  }
+
+  show(){
+    this.element.style.display = "block"
   }
 }
 
