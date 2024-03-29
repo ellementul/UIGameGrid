@@ -1,11 +1,10 @@
-class Grid {
+class Grid extends Map {
   constructor(baseLength) {
     this.baseLength = baseLength || 20
     this.cell = {
       height: 0,
       width: 0
     }
-    this.boxes = new Map
 
     this.computeCells()
 
@@ -25,11 +24,11 @@ class Grid {
   }
 
   createBox({ name, top, right, bottom, left, centred }) {
-    name ||= "Box" + this.boxes.size
-    if(this.boxes.has(name))
+    name ||= "Box" + this.size
+    if(this.has(name))
       throw new Error(`Box with name "${name}" is existed already!`)
 
-    this.boxes.set(name, new Box({ 
+    this.set(name, new Box({ 
       cellWidth: this.cell.width,
       cellHeight: this.cell.height
     }, { 
@@ -40,11 +39,11 @@ class Grid {
       centred
     }))
 
-    return this.boxes.get(name)
+    return this.get(name)
   }
 
   updateBoxes() {
-    for (const [name, box] of this.boxes) {
+    for (const [name, box] of this) {
       box.updateSize({
         cellWidth: this.cell.width,
         cellHeight: this.cell.height
