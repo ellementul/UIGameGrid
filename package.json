@@ -1,6 +1,6 @@
 {
   "name": "@ellementul/ui-game-grid",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Interface Grid for games",
   "main": "index.js",
   "scripts": {
