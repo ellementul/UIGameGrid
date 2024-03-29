@@ -1,5 +1,7 @@
 class Grid extends Map {
   constructor(baseLength) {
+    super()
+
     this.baseLength = baseLength || 20
     this.cell = {
       height: 0,
@@ -28,7 +30,7 @@ class Grid extends Map {
     if(this.has(name))
       throw new Error(`Box with name "${name}" is existed already!`)
 
-    this.set(name, new Box({ 
+    this.set(name, new Box(name, { 
       cellWidth: this.cell.width,
       cellHeight: this.cell.height
     }, { 
@@ -53,8 +55,9 @@ class Grid extends Map {
 }
 
 class Box {
-  constructor({ cellWidth, cellHeight }, { top, right, bottom, left, centred = false }) {
+  constructor(name, { cellWidth, cellHeight }, { top, right, bottom, left, centred = false }) {
     this.element = document.createElement("div")
+    this.element.id = name
     this.element.style.position = "absolute"
     this.limits = { top, right, bottom, left }
     this.centred = centred
@@ -89,6 +92,10 @@ class Box {
     this.element.style.height = ((this.limits.top + this.limits.bottom) * cellHeight) + "px"
     this.element.style.left = (cx - this.limits.left * cellWidth) + "px"
     this.element.style.top = (cy - this.limits.top * cellHeight) + "px"
+  }
+
+  setBgColor({r = 0, g = 0, b = 0, a = 1 } = {}) {
+    this.element.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
   }
 
   hidden(){

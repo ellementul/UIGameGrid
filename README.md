@@ -31,7 +31,7 @@ const grid = new Grid(30) // 30 cells on base side
 ### Top-left angle 4x4
 ```js
 grid.createBox({
-  name: "Name your Block", //Optional
+  name: "Name_your_Block", //Optional, setting as id of HTML element
   top: 0,
   left: 0,
   right: -4,
@@ -57,4 +57,9 @@ grid.createBox({
   bottom: 3,
   centred: true
 })
+```
+
+### Get Top-left angle
+```js
+const box = grid.get("Name_your_Block")
 ```
