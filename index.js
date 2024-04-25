@@ -94,7 +94,7 @@ class Box {
     this.element.style.top = (cy - this.limits.top * cellHeight) + "px"
   }
 
-  setBgColor({r = 0, g = 0, b = 0, a = 1 } = {}) {
+  setBgColor(r = 0, g = 0, b = 0, a = 1) {
     this.element.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
   }
 
