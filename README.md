@@ -1,75 +1,38 @@
 # UIGameGrid
+UI tiling for games
 
-## Description
-Grid for postion of boxes.
+
+## Grid
+Grid is root for all components
+Grid setup sizes of cells
+Components can use cells as coordinates
+It make to create components siply for diffrents sizes and orintations screens
 
 Minimal side of grid is base side.
+The base sice is always minimal side.
 
 Base side can be 20 cells or 30 cells of lenght.
 
-Each side of box has fixed distance from side of window.
+if grid is resized then cells changes size and gris can chandge base side on other side
 
-Distance has to be Integer type.
-
-Negative distance from opposite side.
-
-Example:
-
-    Left: 5 = 5 cells from left side of window for left side of box
-  
-    Left: -5 = 5 cells from right side of window for left side of box
-
-With "Centred" option you can use only positive distance.
-
-## Use
-### Create grid
+### Create Grid
 ```js
 const grid = new Grid() // Default 20 cells on base side
 const grid = new Grid(30) // 30 cells on base side
 ```
 
-### Top-left angle 4x4
+### Create Component by Grid
 ```js
-grid.createBox({
-  name: "Name_your_Block", //Optional, setting as id of HTML element
-  top: 0,
-  left: 0,
-  right: -4,
-  bottom: -4
-})
-```
-### Bottom-left angle 4x4
-```js
-grid.createBox({
-  top: -4,
-  left: 0,
-  right: -4,
-  bottom: 0
-})
+const rootComponent = grid.createComponent("Name_your_Component")
 ```
 
-### Centered box 6x6
+### Get Component by Name
 ```js
-grid.createBox({
-  top: 3,
-  left: 3,
-  right: 3,
-  bottom: 3,
-  centred: true
-})
+const box = grid.get("Name_your_Component")
 ```
 
-### Get Top-left angle
-```js
-const box = grid.get("Name_your_Block")
-```
 
-### Set Color Background
-```js
-box.setBgColor(r = 0, g = 0, b = 0, a = 1)
-```
-
-### Component
+## Component
 Нужно разделить компонет на два класса, один внутри сетки, другой обертка поверх первого, уже внутри участника
   Первый содержит:
     Методы стилей
@@ -101,3 +64,15 @@ box.setBgColor(r = 0, g = 0, b = 0, a = 1)
 Класс компонета диктует на какие события он подписан, его размеры, его рацветку и его подкомпоненты
 Класс компонета не решает свою позицию и видимость, это задает родительский компонет
 Перед созданием компонета его класс всегда расширяется базовым классвом компонета 
+
+### Set Color Background
+```js
+box.setBgColor(r = 0, g = 0, b = 0, a = 1)
+```
+
+## Panels
+Panel can't be big then base side grid by width or height 
+#### Bottom
+#### Top
+#### Left
+#### Right

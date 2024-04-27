@@ -1,8 +1,8 @@
-import { validationColor, randomColor } from './color.js'
+import { Component } from './components/component.js'
 
-class Box {
+class Box extends Component {
     constructor(
-        name, 
+        name,
         cell,
         { 
             color, 
@@ -12,10 +12,8 @@ class Box {
             left, 
             centred = false 
         }
-    ) {    
-        this.element = document.createElement("div")
-        this.element.id = name
-        this.element.style.position = "absolute"
+    ) {
+        super(name)
         this.setBgColor(color)
 
         this.limits = { top, right, bottom, left }
@@ -37,38 +35,20 @@ class Box {
         const y1 = this.limits.top >= 0 ? this.limits.top * cellHeight : window.screen.height + this.limits.top * cellHeight
         const y2 = this.limits.bottom >= 0 ? window.screen.height - this.limits.bottom * cellHeight : -1 * this.limits.bottom * cellHeight
 
-        this.element.style.width = (x2 - x1) + "px"
-        this.element.style.height = (y2 - y1) + "px"
-        this.element.style.top = y1 + "px"
-        this.element.style.left = x1 + "px"
+        this.setWidth((x2 - x1) + "px")
+        this.setHeight((y2 - y1) + "px")
+        this.setTop(y1 + "px")
+        this.setLeft(x1 + "px")
     }
 
     updateByCenter({ cellWidth, cellHeight }) {
         const cx = window.screen.width / 2
         const cy = window.screen.height / 2
 
-        this.element.style.width = ((this.limits.left + this.limits.right) * cellWidth) + "px"
-        this.element.style.height = ((this.limits.top + this.limits.bottom) * cellHeight) + "px"
-        this.element.style.left = (cx - this.limits.left * cellWidth) + "px"
-        this.element.style.top = (cy - this.limits.top * cellHeight) + "px"
-    }
-
-    setBgColor(color) {
-        if(!validationColor(color)) {
-            console.warn(`This color "${color}" is not valid!`)
-            color = randomColor()
-            console.warn(`The color will be set up in random "${color}"`)
-        }
-
-        this.element.style.backgroundColor = color
-    }
-
-    hidden(){
-        this.element.style.display = "none"
-    }
-
-    show(){
-        this.element.style.display = "block"
+        this.setWidth(((this.limits.left + this.limits.right) * cellWidth) + "px")
+        this.setHeight(((this.limits.top + this.limits.bottom) * cellHeight) + "px")
+        this.setTop((cx - this.limits.left * cellWidth) + "px")
+        this.setLeft((cy - this.limits.top * cellHeight) + "px")
     }
 }
 
