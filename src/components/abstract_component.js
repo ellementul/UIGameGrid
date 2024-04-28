@@ -5,6 +5,7 @@ class AbstractMethodError extends Error {
 }
 
 const ABSTRACT_METHOD_LIST = [
+    "destructor",
     "setBgColor",
     "setWidth",
     "setHeight",

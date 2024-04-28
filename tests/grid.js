@@ -1,8 +1,8 @@
-import { Grid } from "../src/grid.js"
+import { GridFactory } from "../src/grid.js"
 
 export function draw() {
-    const grid = new Grid()
-    grid.showDebugCells()
+    const UI = new GridFactory()
+    UI.grid.showDebugGrid()
 }
 
 

@@ -2,11 +2,20 @@ import { AbstractComponent } from './abstract_component.js'
 import { validationColor, randomColor } from './color.js'
 
 class Component extends AbstractComponent {
-    constructor (name) {
+    constructor ({ element = null, parent = null } = {}) {
         super()
 
-        this.element = document.createElement("div")
-        this.element.id = name
+        if(parent) {
+            this.element = document.createElement("div")
+            parent.element.appendChild(this.element)
+        }
+        else if(element instanceof HTMLElement ) {
+            this.element = element
+        }
+        else {
+            this.element = document.body 
+        }
+
         this.element.style.position = "absolute"
 
         this.left = 0
@@ -53,9 +62,9 @@ class Component extends AbstractComponent {
         this.element.style.display = "none"
     }
 
-    // show(){
-    //     this.element.style.display = "block"
-    // }
+    show(){
+        this.element.style.display = "block"
+    }
 }
 
 export { Component }

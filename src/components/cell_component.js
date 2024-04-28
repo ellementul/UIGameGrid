@@ -1,8 +1,11 @@
 import { SubComponent } from "./sub_component.js"
 
 class CellComponent extends SubComponent {
-    constructor (name, parent) {
-        super(name, parent)
+    constructor (options) {
+        if(!(parent instanceof CellComponent || parent instanceof GridComponent))
+            throw TypeError("The subComponent has to be CellComponent instance for Grid!")
+
+        super(options)
 
         this.left = 0
         this.top = 0
