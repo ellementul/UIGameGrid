@@ -7,6 +7,10 @@ class Component {
         this.element.style.position = "absolute"
     }
 
+    destructor() {
+        this.element.remove()
+    }
+
     setBgColor(color) {
         if(!validationColor(color)) {
             console.warn(`This color "${color}" is not valid!`)
@@ -18,7 +22,6 @@ class Component {
     }
 
     setWidth(width) {
-        console.log(width)
         this.element.style.width = width + "px"
     }
 
