@@ -33,6 +33,20 @@ const box = grid.get("Name_your_Component")
 
 
 ## Component
+All components is derived from SubComponent class (exclude base Component class)
+The base component class for root component and all render methods
+All components calls render methods from Component class
+If we want change render engine then we need rewrite only Component class
+
+### Types Components
++ SubComponent - base class for custom components without Grid
++ CellComponent - base class for little components
++ GridComponent - base class for big custom components with Grid
+
+## TODO
+Make button for DebugGrid
+Make slider for sitting subdivide subGrid
+
 Нужно разделить компонет на два класса, один внутри сетки, другой обертка поверх первого, уже внутри участника
   Первый содержит:
     Методы стилей
