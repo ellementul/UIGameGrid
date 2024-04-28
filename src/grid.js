@@ -1,4 +1,5 @@
 // import { Box } from './box.js'
+import { Component } from './components/component.js'
 import { CellComponent } from './components/cell_component.js'
 
 const BASE_LENGTH = 20
@@ -7,19 +8,19 @@ const HEIGHT = "height"
 const X_AXIS = "x"
 const Y_AXIS = "y"
 
-class Grid extends Map {
+class Grid {
     constructor(baseLength) {
-        super()
+        this.component = new Component("root")
 
         this.baseLength = baseLength || BASE_LENGTH
-        this.cellSizes = {}
+        this.component.cell = { sizes: { width: 0, height: 0 } }
 
         this.drawGrid()
         this.computeCells()
 
         window.addEventListener("resize", () => {
             this.computeCells()
-            this.updateCellSize()
+            this.updateSize()
         })
     }
 
@@ -47,7 +48,7 @@ class Grid extends Map {
         for (let x = 0; x < xLimit; x++) {
             for(let y = 0; y < yLimit; y++) {
 
-                const cell = new CellComponent("Cell" + x + "_" + y, this.cellSizes)
+                const cell = new CellComponent("Cell" + x + "_" + y, this.component)
                 cell.element.style.border = "1px dotted #4e150d"
                 cell.element.style.color = "#4e150d"
                 cell.setBgColor("#f8bb26")
@@ -90,16 +91,16 @@ class Grid extends Map {
         const baseSide  = sizes[HEIGHT] < sizes[WIDTH] ? HEIGHT : WIDTH
         const otherSide = sizes[HEIGHT] < sizes[WIDTH] ? WIDTH  : HEIGHT
 
-        this.cellSizes[baseSide] = sizes[baseSide] / this.baseLength
+        this.component.cell.sizes[baseSide] = sizes[baseSide] / this.baseLength
 
-        this.otherLength = Math.floor(sizes[otherSide] / this.cellSizes[baseSide])
+        this.otherLength = Math.floor(sizes[otherSide] / this.component.cell.sizes[baseSide])
 
-        this.cellSizes[otherSide] = sizes[otherSide] / this.otherLength
+        this.component.cell.sizes[otherSide] = sizes[otherSide] / this.otherLength
     }
 
-    updateCellSize() {
-        // for (const [_, cell] of this.debugCells) {
-        //     cell.updateCellSize(this.cellSizes)
+    updateSize() {
+        // for (const [_, subComponent] of this) {
+        //     subComponent.updateSize()
         // }
 
         if(this.debugCells)

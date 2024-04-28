@@ -1,10 +1,20 @@
+import { AbstractComponent } from './abstract_component.js'
 import { validationColor, randomColor } from './color.js'
 
-class Component {
+class Component extends AbstractComponent {
     constructor (name) {
+        super()
+
         this.element = document.createElement("div")
         this.element.id = name
         this.element.style.position = "absolute"
+
+        this.left = 0
+        this.top = 0
+        this.width = 0
+        this.height = 0
+        this.widthPx = 0
+        this.heightPX = 0
     }
 
     destructor() {
@@ -22,10 +32,12 @@ class Component {
     }
 
     setWidth(width) {
+        this.widthPx = width
         this.element.style.width = width + "px"
     }
 
     setHeight(height) {
+        this.heightPx = height
         this.element.style.height = height + "px"
     }
 
@@ -41,9 +53,9 @@ class Component {
         this.element.style.display = "none"
     }
 
-    show(){
-        this.element.style.display = "block"
-    }
+    // show(){
+    //     this.element.style.display = "block"
+    // }
 }
 
 export { Component }

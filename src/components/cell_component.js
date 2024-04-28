@@ -1,45 +1,44 @@
-import { Component } from "./component.js"
+import { SubComponent } from "./sub_component.js"
 
-class CellComponent extends Component {
-    constructor (name, cellSizes ) {
-        super(name)
+class CellComponent extends SubComponent {
+    constructor (name, parent) {
+        super(name, parent)
 
-        this.cellSizes = cellSizes
         this.left = 0
         this.top = 0
         this.width = 1
         this.height = 1
 
-        this.updateCellSize(cellSizes)
+        this.updateSize()
     }
 
     setWidth(width) {
         this.width = width
-        super.setWidth(this.width * this.cellSizes.width)
+        super.setWidth(this.width * this.cell.sizes.width)
     }
 
     setHeight(height) {
         this.height = height
-        super.setHeight(this.height * this.cellSizes.height)
+        super.setHeight(this.height * this.cell.sizes.height)
     }
 
     setTop(top) {
         this.top = top
-        super.setTop(this.top * this.cellSizes.height)
+        super.setTop(this.top * this.cell.sizes.height)
     }
 
     setLeft(left) {
         this.left = left
-        super.setLeft(this.left * this.cellSizes.width)
+        super.setLeft(this.left * this.cell.sizes.width)
     }
 
-    updateCellSize(cellSizes) {
-        cellSizes ||= this.cellSizes
+    updateSize() {
+        this.cell = this.parent.cell
         
-        super.setWidth( this.width  * cellSizes.width)
-        super.setHeight(this.height * cellSizes.height)
-        super.setTop(   this.top    * cellSizes.height)
-        super.setLeft(  this.left   * cellSizes.width)
+        super.setWidth( this.width  * this.cell.sizes.width)
+        super.setHeight(this.height * this.cell.sizes.height)
+        super.setTop(   this.top    * this.cell.sizes.height)
+        super.setLeft(  this.left   * this.cell.sizes.width)
     }
 }
 
