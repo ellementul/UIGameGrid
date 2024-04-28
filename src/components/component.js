@@ -13,7 +13,7 @@ class Component extends AbstractComponent {
             this.element = element
         }
         else {
-            this.element = document.body 
+            throw TypeError("The constrictor need root element or parent in options to get root HTML element")
         }
 
         this.element.style.position = "absolute"
