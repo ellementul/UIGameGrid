@@ -12,12 +12,22 @@ class SubComponent extends Component {
         if(parent instanceof SubComponent)
             parent.addSubComponent(name, this)
 
+        this.componentsStore = parent.componentsStore
+
+        if(uniqName) {
+            this.componentsStore.set(uniqName, this)
+            this.uniqName = uniqName
+        }
+
         this.parent = parent
         this[subComponentsSymbol] = new Components
     }
 
     destructor() {
         this[subComponentsSymbol].clear()
+        if(this.uniqName) {
+            this.componentsStore.delete(this.uniqName)
+        }
         super.destructor()
     }
 

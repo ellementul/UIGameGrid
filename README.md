@@ -50,10 +50,31 @@ If we want change render engine then we need rewrite only Component class
       Elements --> BaseElement --> SubElement 
       SubElement --> Grid --> RootGrid --> UniqNameForElements
       SubElement --> CameraElement
+      Grid --> ExpandHeightElement
       AllRenderFunctions ==> BaseElement
       ClassParam ==> AbstractElement --> BaseElement
       AllHierarchyFunctions ==> SubElement
-      AllMethodsScrolling ==> CameraElement
+      CheckOutLimitCoords ==> Grid
+      AllMethodsScrolling ==> CameraElement --> HaveOneSubElement
+      UI --> Events --> UIEvent
+      RootGrid --> EventMixin --> BaseElement
+      UIEvent --> Properties
+      Properties --> Action
+      Properties --> SourceElement --> UniqNameForElements
+      Properties --> TargetElement --> UniqNameForElements
+```
+
+## TODO Diagram
+```mermaid
+  flowchart TD
+      SubElement --> CameraElement
+      Grid --> ExpandHeightElement
+
+      AllRenderFunctions ==> BaseElement
+      ClassParam ==> BaseElement
+      AllHierarchyFunctions ==> SubElement
+      CheckOutLimitCoords ==> Grid
+      AllMethodsScrolling ==> CameraElement --> HaveOneSubElement
       UI --> Events --> UIEvent
       RootGrid --> EventMixin --> BaseElement
       UIEvent --> Properties

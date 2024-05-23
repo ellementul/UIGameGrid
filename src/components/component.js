@@ -1,15 +1,13 @@
-import { ComponentsStore } from '../uniq_component_store.js'
 import { AbstractComponent } from './abstract_component.js'
 import { validationColor, randomColor } from './color.js'
 
 class Component extends AbstractComponent {
-    constructor ({ element = null, parent = null, uniqName = null } = {}) {
+    constructor ({ element = null, parent = null } = {}) {
         super()
 
         if(parent) {
             this.element = document.createElement("div")
             parent.element.appendChild(this.element)
-            this.componentsStore = parent.componentsStore
         }
         else if(element instanceof HTMLElement ) {
             this.element = element
@@ -18,12 +16,6 @@ class Component extends AbstractComponent {
         else {
             throw TypeError("The constrictor need root element or parent in options to get root HTML element")
         }
-
-        if(uniqName) {
-            this.componentsStore.set(uniqName, this)
-            this.uniqName = uniqName
-        }
-
 
         this.element.style.position = "absolute"
 
@@ -37,9 +29,6 @@ class Component extends AbstractComponent {
 
     destructor() {
         this.element.remove()
-        if(uniqName) {
-            this.componentsStore.delete(this.uniqName)
-        }
     }
 
     setBgColor(color) {
