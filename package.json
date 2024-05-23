@@ -22,5 +22,9 @@
   "homepage": "https://github.com/ellementul/UIGameGrid#readme",
   "devDependencies": {
     "node-static": "^0.7.11"
+  },
+  "dependencies": {
+    "@ellementul/state-machine": "^1.0.1",
+    "@ellementul/united-events-environment": "^2.2.0"
   }
 }

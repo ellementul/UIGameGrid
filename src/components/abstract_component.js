@@ -7,12 +7,15 @@ class AbstractMethodError extends Error {
 const ABSTRACT_METHOD_LIST = [
     "destructor",
     "setBgColor",
+    "getBgColor",
     "setWidth",
     "setHeight",
     "setTop",
     "setLeft",
     "hidden",
-    "show"
+    "show",
+    "on", //enable event
+    "off" //disable event
 ]
 
 const createAbstractMethod = (context, methodName) => {

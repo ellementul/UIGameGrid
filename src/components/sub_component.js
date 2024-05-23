@@ -3,8 +3,8 @@ import { Component } from "./component.js"
 const subComponentsSymbol = Symbol
 
 class SubComponent extends Component {
-    constructor ({ parent, name }) {
-        super({ parent })
+    constructor ({ parent, name, uniqName }) {
+        super({ parent, uniqName })
 
         if(!(parent instanceof Component))
             throw TypeError("The parent of this component has to be Component!")

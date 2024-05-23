@@ -1,4 +1,3 @@
-// import { Box } from './box.js'
 import { Component } from './components/component.js'
 import { GridComponent } from './components/grid_component.js'
 
@@ -7,7 +6,7 @@ const DEFAULT_SUBDIVIDE_MAIN_GRID = 20
 class GridFactory {
     constructor({ subdivideLevelGrid, element = document.body } = {}) {
 
-        this.component = new Component({ element })
+        this.component = new Component({ element, uniqName: "rootComponent" })
         this.component.setTop(0)
         this.component.setLeft(0)
 
