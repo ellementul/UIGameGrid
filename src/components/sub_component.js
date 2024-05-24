@@ -1,15 +1,16 @@
 import { Component } from "./component.js"
+import { RenderComponent } from "./render_component.js"
 
-const subComponentsSymbol = Symbol
+const subComponentsSymbol = Symbol()
 
-class SubComponent extends Component {
+class SubComponent extends RenderComponent {
     constructor ({ parent, name, uniqName }) {
         super({ parent, uniqName })
 
-        if(!(parent instanceof Component))
+        if(!Component.is(parent))
             throw TypeError("The parent of this component has to be Component!")
         
-        if(parent instanceof SubComponent)
+        if(SubComponent.is(parent))
             parent.addSubComponent(name, this)
 
         this.componentsStore = parent.componentsStore
@@ -43,6 +44,10 @@ class SubComponent extends Component {
         this[subComponentsSymbol].forEach(subComponent => subComponent.updateSize())
     }
 }
+
+const subComponentType = "Symbol_6daac273-9bea-4f9e-9af2-90326225efa3"
+SubComponent.prototype.subComponentType = subComponentType
+SubComponent.is = component => component && typeof component === "object" && component.subComponentType === subComponentType
 
 class Components extends Map {
     set(name, component) {

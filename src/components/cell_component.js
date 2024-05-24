@@ -1,9 +1,14 @@
 import { SubComponent } from "./sub_component.js"
+import { GridComponent } from "./grid_component.js"
 
 class CellComponent extends SubComponent {
-    constructor (options) {
-        if(!(parent instanceof CellComponent || parent instanceof GridComponent))
-            throw TypeError("The subComponent has to be CellComponent instance for Grid!")
+    constructor (options, gridComponent) {
+
+        const { parent } = options
+
+        //TODO Interface checking in js
+        // if(!(parent instanceof CellComponent || parent instanceof GridComponent))
+        //     throw TypeError("The subComponent has to be CellComponent instance for Grid!")
 
         super(options)
 

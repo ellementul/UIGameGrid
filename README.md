@@ -50,15 +50,18 @@ If we want change render engine then we need rewrite only Component class
       Elements --> BaseElement --> SubElement 
       SubElement --> Grid --> RootGrid --> UniqNameForElements
       SubElement --> CameraElement
-      Grid --> ExpandHeightElement
       AllRenderFunctions ==> BaseElement
-      ClassParam ==> AbstractElement --> BaseElement
       AllHierarchyFunctions ==> SubElement
-      CheckOutLimitCoords ==> Grid
       AllMethodsScrolling ==> CameraElement --> HaveOneSubElement
+      BaseElement --> PointerEvents
+      PointerEvents --> PointerDown
+      PointerEvents --> PointerMove
+      PointerEvents --> PointerUp
+      CameraElement --> MovingEvent
       UI --> Events --> UIEvent
-      RootGrid --> EventMixin --> BaseElement
+      RootGrid --> EventMixin --> SubElement
       UIEvent --> Properties
+      UIEvent --> MovingEvent
       Properties --> Action
       Properties --> SourceElement --> UniqNameForElements
       Properties --> TargetElement --> UniqNameForElements
@@ -68,15 +71,17 @@ If we want change render engine then we need rewrite only Component class
 ```mermaid
   flowchart TD
       SubElement --> CameraElement
-      Grid --> ExpandHeightElement
+      BaseElement --> PointerEvents
+      PointerEvents --> PointerDown
+      PointerEvents --> PointerMove
+      PointerEvents --> PointerUp
 
-      AllRenderFunctions ==> BaseElement
-      ClassParam ==> BaseElement
-      AllHierarchyFunctions ==> SubElement
-      CheckOutLimitCoords ==> Grid
       AllMethodsScrolling ==> CameraElement --> HaveOneSubElement
+      CameraElement --> MovingEvent
+      UIEvent --> MovingEvent
+
       UI --> Events --> UIEvent
-      RootGrid --> EventMixin --> BaseElement
+      RootGrid --> EventMixin --> SubElement
       UIEvent --> Properties
       Properties --> Action
       Properties --> SourceElement --> UniqNameForElements
