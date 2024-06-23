@@ -1,40 +1,56 @@
-import { ComponentsStore } from './uniq_component_store.js'
-import { RenderComponent } from './components/render_component.js'
-import { GridComponent } from './components/grid_component.js'
+import { Container, Point, Sprite } from "pixi.js"
+import 'pixi.js/math-extras'
 
+const FIT_NONE = null
+const FIT_WIDTH = "width"
+const FIT_HEIGHT = "height"
 
-const DEFAULT_SUBDIVIDE_MAIN_GRID = 20
+class Grid extends Container {
+    constructor(options) {
+        super(options)
 
-class GridFactory {
-    constructor({ subdivideLevelGrid, element = document.body } = {}) {
+        this.sizesByTilling = { width: 1, height: 1 }
+        this.positionByTilling = new Point(0, 0)
+        this.tileSize = 0
 
-        this.component = new RenderComponent({ element })
-        this.component.componentsStore = new ComponentsStore
-        this.component.setTop(0)
-        this.component.setLeft(0)
-
-        this.grid = new GridComponent({ 
-            parent: this.component, 
-            name: "mainGrid",
-            subdivideLevel: subdivideLevelGrid || DEFAULT_SUBDIVIDE_MAIN_GRID
-        })
-
-        this.updateSize()
-        
-
-        window.addEventListener("resize", () => this.updateSize())
+        this.fitMode = FIT_WIDTH
+        this.onRender = () => this.updateSizes()
     }
 
-    computeSize() {
-        this.component.setWidth(window.innerWidth)
-        this.component.setHeight(window.innerHeight)
+    setTileSize(size) {
+        this.fitMode = FIT_NONE
+        this.customTileSize = size
+
+        return this
     }
 
-    updateSize() {
-        this.computeSize()
+    setBackground(texture) {
+        this.background = new Sprite(texture)
+        this.addChild(this.background)
 
-        this.grid.updateSize()
+        return this
+    }
+
+    updateSizes() {
+        if(!this.parent)
+            return
+
+        this.tileSize = this.customTileSize || this.parent.tileSize || 0
+
+        if(this.fitMode) {
+            this[this.fitMode] = this.parent[this.fitMode]
+            this.tileSize = Math.floor(this[this.fitMode] / this.sizesByTilling[this.fitMode])
+        }
+
+        this.position = this.positionByTilling.multiplyScalar(this.tileSize)
+        this.width = this.sizesByTilling.width * this.tileSize
+        this.height = this.sizesByTilling.height * this.tileSize
+
+        if(this.background) {
+            this.background.width = this.width
+            this.background.height = this.height
+        }
     }
 }
 
-export { GridFactory }
+export { Grid } 
