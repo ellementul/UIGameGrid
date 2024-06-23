@@ -1,5 +1,9 @@
-import { UIFactory } from "./index.js"
+import { Application, Graphics } from "pixi.js"
+
+import { Grid } from "../src/index.js"
+
 import { Stats } from './stats.js'
+
 
 const stats = new Stats()
 stats.showPanel(0)
@@ -19,16 +23,17 @@ const app = new Application()
 await app.init({ resizeTo: window, hello: true })
 document.body.appendChild(app.canvas)
 
-const viewport = new Viewport({
-    screenWidth: window.innerWidth,
-    screenHeight: window.innerHeight,
-    worldWidth: 1000,
-    worldHeight: 1000,
+const grid = new Grid({ renderer: app.renderer })
+app.stage.addChild(grid)
 
-    events: app.renderer.events
-})
+const graphics = new Graphics()
+    .rect(0, 0, 50, 50)
+    .fill(0xFFFFFF)
+    .rect(50, 50, 50, 50)
+    .fill(0xFFFFFF)
 
-app.stage.addChild(viewport)
+const texture = await app.renderer.extract.texture(graphics)
+await grid.setBackgroundTiles(texture).setSubdivide(null, 3)
 
 
 window.__PIXI_APP__ = app // Pixi.js DevTools

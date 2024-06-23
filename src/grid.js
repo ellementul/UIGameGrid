@@ -1,55 +1,118 @@
-import { Container, Point, Sprite } from "pixi.js"
+import { Point, Sprite, TilingSprite } from "pixi.js"
+import { Viewport } from "pixi-viewport"
 import 'pixi.js/math-extras'
+import { CompositeTilemap } from "@pixi/tilemap"
 
-const FIT_NONE = null
-const FIT_WIDTH = "width"
-const FIT_HEIGHT = "height"
+const NONE_MODE = null
+const WIDTH_MODE = "width"
+const HEIGHT_MODE = "height"
 
-class Grid extends Container {
-    constructor(options) {
-        super(options)
+class Grid extends Viewport {
+    constructor({ renderer }) {
+        super({ events: renderer.events })
 
-        this.sizesByTilling = { width: 1, height: 1 }
-        this.positionByTilling = new Point(0, 0)
-        this.tileSize = 0
+        this.minWorldWidth = this.screenWidth
+        this.minWorldHeight = this.screenHeight
+        this.worldWidth = this.minWorldWidth
+        this.worldHeight = this.minWorldHeight
+        this.fit()
 
-        this.fitMode = FIT_WIDTH
-        this.onRender = () => this.updateSizes()
+        this.tileMap = new CompositeTilemap
+        this.addChild(this.tileMap)
+        this.worldTileSize = 32
+        this.screenTileSize = 32
+
+        this.fitMode = NONE_MODE
+        this.updateSizes()
     }
 
-    setTileSize(size) {
-        this.fitMode = FIT_NONE
-        this.customTileSize = size
+    set width(value){
+        this.screenWidth = value
+        const fitMode = this.fitMode == WIDTH_MODE ? WIDTH_MODE : NONE_MODE
+        this.setSubdivide(fitMode, subdivideLevel = 1)
+    }
+    set height(value){
+        this.screenHeight = value
+        const fitMode = this.fitMode == HEIGHT_MODE ? HEIGHT_MODE : NONE_MODE
+        this.setSubdivide(fitMode, subdivideLevel = 1)
+    }
+
+    setSubdivide(fitMode, subdivideLevel) {
+        this.fitMode = fitMode || WIDTH_MODE
+        this.subdivideLevel = subdivideLevel || 1
+        this.updateSizes()
+    }
+
+    setBackgroundTiles(texture) {
+        this.worldTileSize = texture.width > texture.height ? texture.height : texture.width
+        const scaleSize = this.screenTileSize / this.worldTileSize
+
+        this.scale = { x: scaleSize, y: scaleSize }
+        this.background = {
+            texture,
+            width: 0,
+            height: 0
+        }
+
+        this.updateSizes()
 
         return this
     }
 
-    setBackground(texture) {
-        this.background = new Sprite(texture)
-        this.addChild(this.background)
+    updateTilling(texture) {
+        texture = texture || this.background.texture
 
-        return this
+        if(!texture)
+            return
+
+        this.tileMap.clear()
+        for (let y = 0; y < this.worldHeight; y += this.worldTileSize) {
+            for (let x = 0; x < this.worldWidth; x += this.worldTileSize) {
+                this.tileMap.tile(texture, x, y)
+            }
+        }
+
+        this.background = {
+            texture,
+            width: this.worldWidth,
+            height: this.worldHeight
+        }
     }
 
     updateSizes() {
-        if(!this.parent)
-            return
+        // Update Screen Sizes
+        if(this.fitMode === WIDTH_MODE) {
+            this.screenTileSize = this.screenWidth / this.subdivideLevel
+            console.log(this.screenTileSize, "???")
 
-        this.tileSize = this.customTileSize || this.parent.tileSize || 0
+            this.worldWidth = this.subdivideLevel * this.worldTileSize
+            this.minWorldHeight = (this.screenHeight / this.screenTileSize) * this.worldTileSize
+        }
+        
+        if(this.fitMode === HEIGHT_MODE) {
+            this.screenTileSize = this.screenHeight / this.subdivideLevel
+            
+            this.minWorldWidth = (this.screenWidth / this.screenTileSize) * this.worldTileSize
+            this.worldHeight = this.subdivideLevel * this.worldTileSize
+        }
+        
+        // Update World Sizes
+        if(this.minWorldWidth > this.worldWidth)
+            this.worldWidth = this.minWorldWidth
 
-        if(this.fitMode) {
-            this[this.fitMode] = this.parent[this.fitMode]
-            this.tileSize = Math.floor(this[this.fitMode] / this.sizesByTilling[this.fitMode])
+        if(this.minWorldHeight > this.worldHeight)
+            this.worldHeight = this.minWorldHeight
+        
+        // Update Scale beetwin Screen and World 
+        if(this.screenTileSizeCache !== this.screenTileSize) {
+            this.screenTileSizeCache = this.screenTileSize
+            const scaleSize = this.screenTileSize / this.worldTileSize
+            this.scale = { x: scaleSize, y: scaleSize }
         }
 
-        this.position = this.positionByTilling.multiplyScalar(this.tileSize)
-        this.width = this.sizesByTilling.width * this.tileSize
-        this.height = this.sizesByTilling.height * this.tileSize
-
-        if(this.background) {
-            this.background.width = this.width
-            this.background.height = this.height
-        }
+        // Update children
+        if(this.background && (this.background.width !== this.worldWidth || this.background.height !== this.worldHeight))
+            this.updateTilling()
     }
 }
 
