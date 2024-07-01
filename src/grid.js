@@ -1,4 +1,3 @@
-import { Point, Sprite, TilingSprite } from "pixi.js"
 import { Viewport } from "pixi-viewport"
 import 'pixi.js/math-extras'
 import { CompositeTilemap } from "@pixi/tilemap"

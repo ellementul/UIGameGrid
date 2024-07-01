@@ -1,8 +1,9 @@
 import { Application, Graphics } from "pixi.js"
 
-import { Grid } from "../src/index.js"
+import { RootGrid } from "../src/root-grid.js"
 
 import { Stats } from './stats.js'
+
 
 
 const stats = new Stats()
@@ -23,7 +24,7 @@ const app = new Application()
 await app.init({ resizeTo: window, hello: true })
 document.body.appendChild(app.canvas)
 
-const grid = new Grid({ renderer: app.renderer })
+const grid = new RootGrid(app)
 app.stage.addChild(grid)
 
 const graphics = new Graphics()
@@ -33,7 +34,7 @@ const graphics = new Graphics()
     .fill(0xFFFFFF)
 
 const texture = await app.renderer.extract.texture(graphics)
-await grid.setBackgroundTiles(texture).setSubdivide(null, 3)
+await grid.setBackgroundTiles(texture)
 
 
 window.__PIXI_APP__ = app // Pixi.js DevTools
