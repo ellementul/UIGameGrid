@@ -3,7 +3,7 @@ import { Container } from "pixi.js"
 import { WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
 import { BackgroundMixin } from "./background.js"
 
-const MIN_SUBDIVIDE = 5
+const MIN_SUBDIVIDE = 16
 const MAX_SUBDIVIDE = 64
 
 const clampSubdiv = (subdivideLevel) => Math.min(Math.max(subdivideLevel, MIN_SUBDIVIDE), MAX_SUBDIVIDE)
@@ -49,12 +49,16 @@ class RootGrid extends Container {
             this.screenTileSize = this.screenWidth / this.subdivideLevel
             this.tillingSizes[WIDTH_MODE] = this.subdivideLevel
             this.tillingSizes[HEIGHT_MODE] = Math.floor(this.screenHeight / this.screenTileSize)
+            this.scale.set(1, this.screenHeight / (this.tillingSizes[HEIGHT_MODE] * this.screenTileSize))
+            this.screenHeight = this.tillingSizes[HEIGHT_MODE] * this.screenTileSize
         }
 
         if(this.fitMode === HEIGHT_MODE) {
             this.screenTileSize = this.screenHeight / this.subdivideLevel
             this.tillingSizes[WIDTH_MODE] = Math.floor(this.screenWidth / this.screenTileSize)
             this.tillingSizes[HEIGHT_MODE] = this.subdivideLevel
+            this.scale.set(this.screenWidth / (this.tillingSizes[WIDTH_MODE] * this.screenTileSize), 1)
+            this.screenWidth = this.tillingSizes[WIDTH_MODE] * this.screenTileSize
         }
         
         // Update children
