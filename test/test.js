@@ -32,7 +32,7 @@ grid.setBackgroundDebug()
 
 const panel = new Panel({ renderer: app.renderer })
 grid.addChild(panel)
-panel.setBackgroundDebug()
+panel.setBackgroundColor()
 
 
 window.__PIXI_APP__ = app // Pixi.js DevTools

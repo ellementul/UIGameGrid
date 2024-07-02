@@ -1,5 +1,5 @@
 import { CompositeTilemap } from "@pixi/tilemap"
-import { Texture } from "pixi.js"
+import { Graphics, Texture } from "pixi.js"
 
 const ONE_TILE = "OneTile"
 const TWO_TILE = "TwoTile"
@@ -16,6 +16,11 @@ export function BackgroundMixin() {
             update() {
                 if(this.tileMap)
                     this.updateTilling()
+
+                if(this.graph)
+                    this.graph
+                        .rect(0, 0, this.width, this.height)
+                        .fill(0xff0000)
             },
             
             updateTilling() {
@@ -41,10 +46,9 @@ export function BackgroundMixin() {
         },
 
         setBackgroundDebug() {
-            if(!this.background.tileMap) {
-                this.background.tileMap = new CompositeTilemap
-                this.addChild(this.background.tileMap)
-            }
+            this.clearBackground()
+            this.background.tileMap = new CompositeTilemap
+            this.addChild(this.background.tileMap)
 
             this.background.tileMod = TWO_TILE
             this.background.textures = [Texture.WHITE, Texture.EMPTY]
@@ -52,16 +56,32 @@ export function BackgroundMixin() {
             this.updateSizes()
         },
 
+        setBackgroundColor() {
+            this.clearBackground()
+            this.background.graph = new Graphics
+            this.addChild(this.background.graph)
+            this.updateSizes()
+        },
+
         setBackgroundTiles(texture) {
-            
-            if(!this.background.tileMap) {
-                this.background.tileMap = new CompositeTilemap
-                this.addChild(this.background.tileMap)
-            }
+            this.clearBackground()
+            this.background.tileMap = new CompositeTilemap
+            this.addChild(this.background.tileMap)
 
             this.background.textures = [texture]
             this.background.tileSize = texture.width > texture.height ? texture.height : texture.width
             this.updateSizes()
+        },
+
+        clearBackground() {
+            if(this.background.tileMap) {
+                this.background.tileMap.removeFromParent()
+                this.background.tileMap.destroy()
+            }
+            if(this.background.graph) {
+                this.background.graph.removeFromParent()
+                this.background.graph.destroy()
+            }
         },
 
         setBackgroundSizes(width, height) {
