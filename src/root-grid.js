@@ -38,7 +38,12 @@ class RootGrid extends Container {
         this.updateSizes()
     }
 
-    
+    addChild(child) {
+        super.addChild(child)
+
+        if(child.isPanel)
+            child.updateSizes()
+    }
 
     updateSizes() {
         // Update Screen Sizes

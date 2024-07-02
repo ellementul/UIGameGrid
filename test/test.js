@@ -1,4 +1,4 @@
-import { Application, Graphics, Texture } from "pixi.js"
+import { Application } from "pixi.js"
 
 import { RootGrid } from "../src/root-grid.js"
 
@@ -31,31 +31,30 @@ app.stage.addChild(grid)
 grid.setBackgroundDebug()
 
 let panel = new Panel({ renderer: app.renderer })
-grid.addChild(panel)
 panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 panel.setBackgroundColor(0xFF)
+grid.addChild(panel)
 
 
 panel = new Panel({ renderer: app.renderer })
-grid.addChild(panel)
 panel.setPosizes({ left: -1, right: 1, top: 2, bottom: 1 })
 panel.setBackgroundColor(0xFF)
-
+grid.addChild(panel)
 
 panel = new Panel({ renderer: app.renderer })
-grid.addChild(panel)
 panel.setPosizes({ left: 1, right: 2, top: -1, bottom: 1 })
 panel.setBackgroundColor(0xFF00)
+grid.addChild(panel)
 
 panel = new Panel({ renderer: app.renderer })
-grid.addChild(panel)
 panel.setPosizes({ left: 2, right: 1, top: 1, bottom: -1 })
 panel.setBackgroundColor(0xFF00)
+grid.addChild(panel)
 
 panel = new Panel({ renderer: app.renderer })
-grid.addChild(panel)
 panel.setPosizes({ left: 2, right: 2, top: 2, bottom: 2 })
 panel.setBackgroundColor(0xFF0000)
+grid.addChild(panel)
 
 
 window.__PIXI_APP__ = app // Pixi.js DevTools
