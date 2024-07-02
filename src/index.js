@@ -1,5 +1,7 @@
-import { Grid } from "./grid.js"
+import { RootGrid } from "./root-grid"
+import { Panel } from "./panel.js"
 
 export {
-    Grid
+    RootGrid,
+    Panel
 }

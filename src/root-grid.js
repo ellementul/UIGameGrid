@@ -1,10 +1,9 @@
 import { Container } from "pixi.js"
-import { CompositeTilemap } from "@pixi/tilemap"
 
+import { WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
+import { BackgroundMixin } from "./background.js"
 
-const WIDTH_MODE = "width"
-const HEIGHT_MODE = "height"
-const MIN_SUBDIVIDE = 16
+const MIN_SUBDIVIDE = 5
 const MAX_SUBDIVIDE = 64
 
 const clampSubdiv = (subdivideLevel) => Math.min(Math.max(subdivideLevel, MIN_SUBDIVIDE), MAX_SUBDIVIDE)
@@ -13,18 +12,20 @@ class RootGrid extends Container {
     constructor(app) {
         super()
 
+        Object.assign(this, new BackgroundMixin)
+
         this.app = app
         this.screenWidth = this.app.screen.width
         this.screenHeight = this.app.screen.height
-        this.worldWidth = this.screenWidth
-        this.worldHeight = this.screenHeight
+
         this.fitMode = HEIGHT_MODE
         this.subdivideLevel = MIN_SUBDIVIDE
 
-        this.tileMap = new CompositeTilemap
-        this.addChild(this.tileMap)
-        this.worldTileSize = 32
         this.screenTileSize = 32
+
+        this.tillingSizes = {}
+        this.tillingSizes[WIDTH_MODE] = 1
+        this.tillingSizes[HEIGHT_MODE] = 1
         
         this.updateSizes()
 
@@ -37,66 +38,35 @@ class RootGrid extends Container {
         this.updateSizes()
     }
 
-    setBackgroundTiles(texture) {
-        this.worldTileSize = texture.width > texture.height ? texture.height : texture.width
-        this.background = {
-            texture,
-            width: 0,
-            height: 0
-        }
-
-        this.updateSizes()
-
-        return this
-    }
-
-    updateTilling(texture) {
-        texture = texture || this.background.texture
-
-        if(!texture)
-            return
-
-        this.tileMap.clear()
-        for (let y = 0; y < this.worldHeight; y += this.worldTileSize) {
-            for (let x = 0; x < this.worldWidth; x += this.worldTileSize) {
-                this.tileMap.tile(texture, x, y)
-            }
-        }
-
-        this.background = {
-            texture,
-            width: this.worldWidth,
-            height: this.worldHeight
-        }
-    }
+    
 
     updateSizes() {
         // Update Screen Sizes
         this.screenWidth = this.app.screen.width
         this.screenHeight = this.app.screen.height
-
+        
         if(this.fitMode === WIDTH_MODE) {
             this.screenTileSize = this.screenWidth / this.subdivideLevel
-
-            this.worldWidth = this.subdivideLevel * this.worldTileSize
-            this.worldHeight = Math.floor(this.screenHeight / this.screenTileSize) * this.worldTileSize
+            this.tillingSizes[WIDTH_MODE] = this.subdivideLevel
+            this.tillingSizes[HEIGHT_MODE] = Math.floor(this.screenHeight / this.screenTileSize)
         }
-        
+
         if(this.fitMode === HEIGHT_MODE) {
             this.screenTileSize = this.screenHeight / this.subdivideLevel
-            
-            this.worldWidth = Math.floor(this.screenWidth / this.screenTileSize) * this.worldTileSize
-            this.worldHeight = this.subdivideLevel * this.worldTileSize
+            this.tillingSizes[WIDTH_MODE] = Math.floor(this.screenWidth / this.screenTileSize)
+            this.tillingSizes[HEIGHT_MODE] = this.subdivideLevel
         }
-
-        this.tileMap.scale = { 
-            x: this.screenWidth / this.worldWidth, 
-            y: this.screenHeight / this.worldHeight
-        }
-
+        
         // Update children
-        if(this.background && (this.background.width !== this.worldWidth || this.background.height !== this.worldHeight))
-            this.updateTilling()
+        if(this.background.tileMap)
+            this.setBackgroundSizes(this.tillingSizes[WIDTH_MODE] * this.background.tileSize, this.tillingSizes[HEIGHT_MODE] * this.background.tileSize)
+        else
+            this.setBackgroundSizes(this.screenWidth, this.screenHeight)
+
+        this.children.forEach(child => {
+            if(child.isPanel)
+                child.updateSizes()
+        });
     }
 }
 

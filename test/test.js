@@ -1,8 +1,9 @@
-import { Application, Graphics } from "pixi.js"
+import { Application, Graphics, Texture } from "pixi.js"
 
 import { RootGrid } from "../src/root-grid.js"
 
 import { Stats } from './stats.js'
+import { Panel } from "../src/panel.js"
 
 
 
@@ -27,14 +28,11 @@ document.body.appendChild(app.canvas)
 const grid = new RootGrid(app)
 app.stage.addChild(grid)
 
-const graphics = new Graphics()
-    .rect(0, 0, 50, 50)
-    .fill(0xFFFFFF)
-    .rect(50, 50, 50, 50)
-    .fill(0xFFFFFF)
+grid.setBackgroundDebug()
 
-const texture = await app.renderer.extract.texture(graphics)
-await grid.setBackgroundTiles(texture)
+const panel = new Panel({ renderer: app.renderer })
+grid.addChild(panel)
+panel.setBackgroundDebug()
 
 
 window.__PIXI_APP__ = app // Pixi.js DevTools
