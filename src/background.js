@@ -8,6 +8,7 @@ export function BackgroundMixin() {
     return {
         background: {
             textures: [],
+            color: 0x000000,
             tileSize: 0,
             tileMod: ONE_TILE,
             width: 0,
@@ -18,9 +19,9 @@ export function BackgroundMixin() {
                     this.updateTilling()
 
                 if(this.graph)
-                    this.graph
+                    this.graph.clear()
                         .rect(0, 0, this.width, this.height)
-                        .fill(0xff0000)
+                        .fill(this.color)
             },
             
             updateTilling() {
@@ -56,8 +57,11 @@ export function BackgroundMixin() {
             this.updateSizes()
         },
 
-        setBackgroundColor() {
+        setBackgroundColor(color) {
             this.clearBackground()
+
+            this.background.color = color || this.background.color
+
             this.background.graph = new Graphics
             this.addChild(this.background.graph)
             this.updateSizes()

@@ -86,7 +86,7 @@ class Panel extends Viewport {
         
         const [ x, width ] = this.calcPosize(this.posizes.left, this.posizes.right, pWidth)
         const [ y, height ] = this.calcPosize(this.posizes.top, this.posizes.bottom, pHeight)
-        console.log(x, width)
+        
         this.position.set(x*pTileSize, y*pTileSize)
         this.tillingSizes[WIDTH_MODE] = width
         this.tillingSizes[HEIGHT_MODE] = height

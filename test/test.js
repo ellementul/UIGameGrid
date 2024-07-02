@@ -30,10 +30,32 @@ app.stage.addChild(grid)
 
 grid.setBackgroundDebug()
 
-const panel = new Panel({ renderer: app.renderer })
+let panel = new Panel({ renderer: app.renderer })
 grid.addChild(panel)
-panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 1 })
-panel.setBackgroundColor()
+panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
+panel.setBackgroundColor(0xFF)
+
+
+panel = new Panel({ renderer: app.renderer })
+grid.addChild(panel)
+panel.setPosizes({ left: -1, right: 1, top: 2, bottom: 1 })
+panel.setBackgroundColor(0xFF)
+
+
+panel = new Panel({ renderer: app.renderer })
+grid.addChild(panel)
+panel.setPosizes({ left: 1, right: 2, top: -1, bottom: 1 })
+panel.setBackgroundColor(0xFF00)
+
+panel = new Panel({ renderer: app.renderer })
+grid.addChild(panel)
+panel.setPosizes({ left: 2, right: 1, top: 1, bottom: -1 })
+panel.setBackgroundColor(0xFF00)
+
+panel = new Panel({ renderer: app.renderer })
+grid.addChild(panel)
+panel.setPosizes({ left: 2, right: 2, top: 2, bottom: 2 })
+panel.setBackgroundColor(0xFF0000)
 
 
 window.__PIXI_APP__ = app // Pixi.js DevTools
