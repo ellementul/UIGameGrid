@@ -32,6 +32,7 @@ grid.setBackgroundDebug()
 
 const panel = new Panel({ renderer: app.renderer })
 grid.addChild(panel)
+panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 1 })
 panel.setBackgroundColor()
 
 

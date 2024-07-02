@@ -86,7 +86,7 @@ class Panel extends Viewport {
         
         const [ x, width ] = this.calcPosize(this.posizes.left, this.posizes.right, pWidth)
         const [ y, height ] = this.calcPosize(this.posizes.top, this.posizes.bottom, pHeight)
-
+        console.log(x, width)
         this.position.set(x*pTileSize, y*pTileSize)
         this.tillingSizes[WIDTH_MODE] = width
         this.tillingSizes[HEIGHT_MODE] = height
@@ -109,10 +109,35 @@ class Panel extends Viewport {
         let coord
         let size
 
-        if(Math.sign(begin) == 0 && Math.sign(end) == 0) {
-            coord = 0
-            size = limit
+        if(Math.sign(begin) + Math.sign(end) < 0 || Math.sign(begin) + Math.sign(end) == 2 || (Math.sign(begin) == 0 && Math.sign(end) == 0)) {
+            coord = Math.abs(begin)
+            size = limit - Math.abs(begin + end)
         }
+
+        if(Math.sign(begin) + Math.sign(end) == 1) {
+            coord = (limit - begin) * Math.sign(begin)
+            size = Math.abs(begin) + Math.abs(end)
+        }
+
+        if(Math.sign(begin) == -1 && Math.sign(end) == 1) {
+            coord = Math.abs(begin)
+            size = end
+        }
+
+        if(Math.sign(begin) == 1 && Math.sign(end) == -1) {
+            coord = (limit - begin) + end
+            size = begin
+        }
+        
+        // if(Math.sign(begin) + Math.sign(end) == 0 && Math.sign(begin) * Math.sign(end) == 0) {
+        //     coord = begin
+        //     size = limit - end
+        // }
+
+        // if(Math.sign(begin) + Math.sign(end) == 0 && Math.sign(begin) * Math.sign(end) != 0) {
+        //     coord = begin
+        //     size = limit - end
+        // }
         
         // switch(Math.sign(begin) + Math.sign(end)) {
         //     case -2:
