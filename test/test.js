@@ -5,6 +5,7 @@ import { RootGrid } from "../src/root-grid.js"
 import { Stats } from './stats.js'
 import { Grid } from "../src/grid.js"
 import { Panel } from "../src/panel.js"
+import { Button, ButtonContainer } from "@pixi/ui"
 
 
 
@@ -30,34 +31,18 @@ const rootGrid = new RootGrid(app)
 app.stage.addChild(rootGrid)
 rootGrid.setBgDebug()
 
-const grid = new Grid
-grid.setBgDebug()
-grid.subTilling = 2
-grid.tillingSizes.width = 8
-grid.tillingSizes.height = 8
-grid.tillingPosition.set(1, 1)
-rootGrid.addChild(grid)
-
-let subGrid = new Grid
-subGrid.setBgDebug()
-subGrid.subTilling = 2
-subGrid.tillingSizes.width = 8
-subGrid.tillingSizes.height = 8
-subGrid.tillingPosition.set(1, 1)
-grid.addChild(subGrid)
-
 const panel = new Panel
 panel.setBgDebug()
-panel.posizes.top = -1
-panel.posizes.left = 6
+panel.posizes.top = 0
 rootGrid.addChild(panel)
 
-subGrid = new Grid
-subGrid.setBgColor('red')
-subGrid.tillingSizes.width = 1
-subGrid.tillingSizes.height = 1
-subGrid.tillingPosition.set(23, 0)
-panel.addChild(subGrid)
+const img = new Graphics()
+img.rect(0, 0, 100, 50, 15)
+img.fill(0xFFFFFF)
+
+
+const button = new ButtonContainer(img)
+panel.addChild(button)
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 // panel.setBackgroundColor(0xFF)

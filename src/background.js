@@ -1,8 +1,8 @@
 import { CompositeTilemap } from "@pixi/tilemap"
 import { Graphics, Texture } from "pixi.js"
 
-export function TillingBackgroundMixin() {
-    return {
+export function TillingBackgroundMixin(object) {
+    return Object.assign(object, {
         setBgColor(color) {
             if(this.background)
                 this.background.removeFromParent()
@@ -56,7 +56,7 @@ export function TillingBackgroundMixin() {
                     .stroke({ color: 'yellow' })
             }
         }
-    }
+    })
 }
             
             // updateTilling() {

@@ -8,7 +8,7 @@ class Grid extends Container {
 
         this.isTillingGrid = true
 
-        Object.assign(this, new TillingBackgroundMixin)
+        TillingBackgroundMixin(this)
         
         this.tileSize = 1
         this.subTilling = 1

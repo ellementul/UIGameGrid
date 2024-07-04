@@ -14,7 +14,7 @@ class RootGrid extends Container {
 
         this.isTillingGrid = true
 
-        Object.assign(this, new TillingBackgroundMixin)
+        TillingBackgroundMixin(this)
 
         this.app = app
 
