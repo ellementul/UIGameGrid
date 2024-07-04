@@ -4,6 +4,7 @@ import { RootGrid } from "../src/root-grid.js"
 
 import { Stats } from './stats.js'
 import { Grid } from "../src/grid.js"
+import { Panel } from "../src/panel.js"
 
 
 
@@ -44,6 +45,10 @@ subGrid.tillingSizes.width = 8
 subGrid.tillingSizes.height = 8
 subGrid.tillingPosition.set(1, 1)
 grid.addChild(subGrid)
+
+const panel = new Panel
+panel.setBgDebug()
+rootGrid.addChild(panel)
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 // panel.setBackgroundColor(0xFF)
