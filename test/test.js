@@ -3,9 +3,8 @@ import { Application, Graphics } from "pixi.js"
 import { RootGrid } from "../src/root-grid.js"
 
 import { Stats } from './stats.js'
-import { Grid } from "../src/grid.js"
 import { Panel } from "../src/panel.js"
-import { Button, ButtonContainer } from "@pixi/ui"
+import { ButtonContainer } from "@pixi/ui"
 import { TillingBackgroundMixin } from "../src/backgroundMixin.js"
 
 
