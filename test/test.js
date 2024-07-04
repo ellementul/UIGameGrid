@@ -6,6 +6,7 @@ import { Stats } from './stats.js'
 import { Grid } from "../src/grid.js"
 import { Panel } from "../src/panel.js"
 import { Button, ButtonContainer } from "@pixi/ui"
+import { TillingBackgroundMixin } from "../src/backgroundMixin.js"
 
 
 
@@ -36,12 +37,10 @@ panel.setBgDebug()
 panel.posizes.top = 0
 rootGrid.addChild(panel)
 
-const img = new Graphics()
-img.rect(0, 0, 100, 50, 15)
-img.fill(0xFFFFFF)
-
-
-const button = new ButtonContainer(img)
+const button = new ButtonContainer()
+TillingBackgroundMixin(button)
+button.setBgDebug()
+button.subTilling = 2
 panel.addChild(button)
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })

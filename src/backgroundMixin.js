@@ -1,8 +1,10 @@
 import { CompositeTilemap } from "@pixi/tilemap"
-import { Graphics, Texture } from "pixi.js"
+import { Graphics, Point, Texture } from "pixi.js"
 
 export function TillingBackgroundMixin(object) {
-    return Object.assign(object, {
+    object = Object.assign(object, {
+        isTillingGrid: true,
+
         setBgColor(color) {
             if(this.background)
                 this.background.removeFromParent()
@@ -57,6 +59,32 @@ export function TillingBackgroundMixin(object) {
             }
         }
     })
+
+    if(typeof object.updateSizes !== "function") {
+
+            object.subTilling = 1
+            object.tillingSizes = { width: 1, height: 1 }
+
+            object.updateSizes = (function() {
+                if(!this.parent || !this.parent.isTillingGrid)
+                    return
+
+                this.tileSize = this.parent.tileSize / this.subTilling
+                this.tillingSizes.width = this.parent.tillingSizes.width * this.subTilling
+                this.tillingSizes.height = this.parent.tillingSizes.height * this.subTilling
+
+                if(this.position.x >= this.parent.tillingSizes.width * this.parent.tileSize
+                    || this.position.y >= this.parent.tillingSizes.height * this.parent.tileSize
+                )
+                    return this.visible = false
+                else
+                    this.visible = true
+
+                this.updateBackground()
+
+                this.children.forEach(child => child.isTillingGrid && child.updateSizes())
+        }).bind(object)
+    }
 }
             
             // updateTilling() {

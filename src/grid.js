@@ -1,6 +1,7 @@
 import { NONE_MODE, WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { TillingBackgroundMixin } from "./background.js"
+import { TillingBackgroundMixin } from "./backgroundMixin.js"
 import { Container, Point } from "pixi.js"
+import { FittingMixin } from "./tillinsMixins.js"
 
 class Grid extends Container {
     constructor() {
@@ -30,6 +31,9 @@ class Grid extends Container {
     }
 
     addChild(child) {
+        if(!child.isTillingGrid)
+            FittingMixin(child)
+
         super.addChild(child)
         this.updateSizes()
     }
