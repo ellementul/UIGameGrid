@@ -29,13 +29,21 @@ const rootGrid = new RootGrid(app)
 app.stage.addChild(rootGrid)
 rootGrid.setBgDebug()
 
-let grid = new Grid
+const grid = new Grid
 grid.setBgDebug()
 grid.subTilling = 2
 grid.tillingSizes.width = 8
-grid.tillingSizes.height = 2
+grid.tillingSizes.height = 8
 grid.tillingPosition.set(1, 1)
 rootGrid.addChild(grid)
+
+const subGrid = new Grid
+subGrid.setBgDebug()
+subGrid.subTilling = 2
+subGrid.tillingSizes.width = 8
+subGrid.tillingSizes.height = 8
+subGrid.tillingPosition.set(1, 1)
+grid.addChild(subGrid)
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 // panel.setBackgroundColor(0xFF)

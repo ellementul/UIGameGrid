@@ -17,10 +17,10 @@ export function TillingBackgroundMixin() {
             if(this.background)
                 this.background.removeFromParent()
 
-            this.background = new CompositeTilemap
-            this.background.textures = [Texture.WHITE, Texture.EMPTY]
-            this.background.tileSize = this.background.textures[0].width
-            this.background.isTilemap = true
+            this.background = new Graphics
+            this.background.alpha = 0.5
+            this.background.scale.set(1, 1)
+            this.background.isDebug = true
             this.addChild(this.background)
         },
 
@@ -36,20 +36,24 @@ export function TillingBackgroundMixin() {
                     .fill(this.background.color)
             }
 
-            if(this.background.isTilemap) {
+            if(this.background.isDebug) {
+                this.background.tileSize = this.tileSize
+
+                this.background.clear()
 
                 for (let y = 0; y < this.tillingSizes.height; y++) {
                     for (let x = 0; x < this.tillingSizes.width; x++) {
+
+                        const colors = ['#ffca02', '#070602']
                         const index = (x + y) % 2
-                        const texture = this.background.textures[index]
-                        this.background.tile(texture, x, y)
+
+                        this.background.rect(this.background.tileSize*x, this.background.tileSize*y, this.background.tileSize, this.background.tileSize)
+                            .fill(colors[index])
                     }
                 }
 
-                this.background.scale.set(
-                    this.tileSize / this.background.tileSize,
-                    this.tileSize / this.background.tileSize
-                )
+                this.background.rect(0, 0, this.tillingSizes.width * this.background.tileSize, this.tillingSizes.height * this.background.tileSize)
+                    .stroke({ color: 'yellow' })
             }
         }
     }
