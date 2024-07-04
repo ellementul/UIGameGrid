@@ -39,14 +39,6 @@ grid.tillingPosition.set(1, 1)
 rootGrid.addChild(grid)
 
 let subGrid = new Grid
-subGrid.setBgColor('red')
-subGrid.subTilling = 2
-subGrid.tillingSizes.width = 2
-subGrid.tillingSizes.height = 2
-subGrid.tillingPosition.set(8, 8)
-grid.addChild(subGrid)
-
-subGrid = new Grid
 subGrid.setBgDebug()
 subGrid.subTilling = 2
 subGrid.tillingSizes.width = 8
@@ -56,8 +48,16 @@ grid.addChild(subGrid)
 
 const panel = new Panel
 panel.setBgDebug()
-panel.posizes.right = -1
+panel.posizes.top = -1
+panel.posizes.left = 6
 rootGrid.addChild(panel)
+
+subGrid = new Grid
+subGrid.setBgColor('red')
+subGrid.tillingSizes.width = 1
+subGrid.tillingSizes.height = 1
+subGrid.tillingPosition.set(23, 0)
+panel.addChild(subGrid)
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 // panel.setBackgroundColor(0xFF)
