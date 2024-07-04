@@ -29,6 +29,11 @@ class Grid extends Container {
         this.onRender = () => this.updateSizes()
     }
 
+    addChild(child) {
+        super.addChild(child)
+        this.updateSizes()
+    }
+
     updateSizes() {
         if(!this.parent || !this.parent.isTillingGrid)
             return
@@ -53,12 +58,16 @@ class Grid extends Container {
 
         this.position.set(this.tillingPosition.x * this.parent.tileSize, this.tillingPosition.y * this.parent.tileSize)
 
+        if(this.position.x >= this.parent.tillingSizes.width * this.parent.tileSize 
+            || this.position.y >= this.parent.tillingSizes.height * this.parent.tileSize
+        )
+            return this.visible = false
+        else
+            this.visible = true
+
         this.updateBackground()
 
-        this.children.forEach(child => {
-            if(typeof child.updateSizes == "function")
-                child.updateSizes()
-        })
+        this.children.forEach(child => child.isTillingGrid && child.updateSizes())
     }
 }
 

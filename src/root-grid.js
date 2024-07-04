@@ -60,10 +60,7 @@ class RootGrid extends Container {
 
         this.updateBackground()
 
-        this.children.forEach(child => {
-            if(child.isTillingGrid)
-                child.updateSizes()
-        })
+        this.children.forEach(child => child.isTillingGrid && child.updateSizes())
     }
 
     setSubdivide(subdivideLevel, fitMode) {
