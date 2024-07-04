@@ -3,7 +3,7 @@ import { Application, Graphics } from "pixi.js"
 import { RootGrid } from "../src/root-grid.js"
 
 import { Stats } from './stats.js'
-import { Panel } from "../src/panel.js"
+import { Grid } from "../src/grid.js"
 
 
 
@@ -25,15 +25,17 @@ const app = new Application()
 await app.init({ resizeTo: window, hello: true })
 document.body.appendChild(app.canvas)
 
-const grid = new RootGrid(app)
-app.stage.addChild(grid)
+const rootGrid = new RootGrid(app)
+app.stage.addChild(rootGrid)
+rootGrid.setBgDebug()
 
+let grid = new Grid
 grid.setBgDebug()
-
-let panel = new Panel
-panel.setBgDebug()
-panel.tillingPosition.set(0, 1)
-grid.addChild(panel)
+grid.subTilling = 2
+grid.tillingSizes.width = 8
+grid.tillingSizes.height = 2
+grid.tillingPosition.set(1, 1)
+rootGrid.addChild(grid)
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 // panel.setBackgroundColor(0xFF)

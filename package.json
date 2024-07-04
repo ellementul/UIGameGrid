@@ -22,6 +22,7 @@
  },
  "dependencies": {
   "@pixi/tilemap": "^5.0.1",
+  "@pixi/ui": "^2.1.2",
   "node-static": "^0.7.11",
   "pixi-viewport": "^5.0.3",
   "pixi.js": "^8.2.0",
