@@ -20,7 +20,10 @@ class Panel extends Grid {
         const [ y, height ] = this.calcPosize(this.posizes.top, this.posizes.bottom, this.parent.tillingSizes.height)
         
         this.tillingPosition.set(x, y)
-        this.tillingSizes = { width, height }
+        this.tillingSizes = { 
+            width: width * this.subTilling, 
+            height: height * this.subTilling
+        }
 
         super.updateSizes()
     }
