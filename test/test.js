@@ -1,13 +1,16 @@
-import { Application, Graphics } from "pixi.js"
+import { Application, Graphics, Text } from "pixi.js"
+import { UIMemberFactory } from "../src/ui-member.js"
 
 import { RootGrid } from "../src/root-grid.js"
 
 import { Stats } from './stats.js'
 import { Panel } from "../src/panel.js"
 import { ButtonContainer } from "@pixi/ui"
-import { TillingBackgroundMixin } from "../src/backgroundMixin.js"
+import { TillingBackgroundMixin } from "../src/background-mixin.js"
+import { Grid } from "../src/grid.js"
 
-
+import switchEvent from "./switch-panels-event.js"
+import { SwitchPanel } from "./switch-panel.js"
 
 const stats = new Stats()
 stats.showPanel(0)
@@ -21,26 +24,20 @@ function animate() {
 
 requestAnimationFrame( animate )
 
-document.body.style.margin = "0px 0px 0px 0px"
+const member = new UIMemberFactory
+window.__PIXI_APP__ = member.pixiApp // Pixi.js DevTools
 
-const app = new Application()
-await app.init({ resizeTo: window, hello: true })
-document.body.appendChild(app.canvas)
-
-const rootGrid = new RootGrid(app)
-app.stage.addChild(rootGrid)
+const rootGrid = new RootGrid(member.pixiApp)
+member.pixiApp.stage.addChild(rootGrid)
 rootGrid.setBgDebug()
 
-const panel = new Panel
-panel.setBgDebug()
-panel.posizes.top = 0
-rootGrid.addChild(panel)
+rootGrid.addChild(new SwitchPanel(member))
 
-const button = new ButtonContainer()
-TillingBackgroundMixin(button)
-button.setBgDebug()
-button.subTilling = 2
-panel.addChild(button)
+member.subscribe(switchEvent, console.log)
+
+
+
+
 
 // panel.setPosizes({ left: 1, right: -1, top: 1, bottom: 2 })
 // panel.setBackgroundColor(0xFF)
@@ -75,4 +72,3 @@ panel.addChild(button)
 // panel.addChild(graph)
 
 
-window.__PIXI_APP__ = app // Pixi.js DevTools

@@ -1,5 +1,5 @@
 import { NONE_MODE, WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { TillingBackgroundMixin } from "./backgroundMixin.js"
+import { TillingBackgroundMixin } from "./background-mixin.js"
 import { Container, Point } from "pixi.js"
 
 class Grid extends Container {

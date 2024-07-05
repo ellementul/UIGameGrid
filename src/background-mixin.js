@@ -12,7 +12,7 @@ export function TillingBackgroundMixin(object) {
             this.background = new Graphics
             this.background.color = color
             this.background.isGraphics = true
-            this.addChild(this.background)
+            this.addChildAt(this.background, 0)
         },
 
         setBgDebug() {
@@ -23,7 +23,7 @@ export function TillingBackgroundMixin(object) {
             this.background.alpha = 0.5
             this.background.scale.set(1, 1)
             this.background.isDebug = true
-            this.addChild(this.background)
+            this.addChildAt(this.background, 0)
         },
 
         updateBackground() {

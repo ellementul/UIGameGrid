@@ -1,7 +1,9 @@
-import { RootGrid } from "./root-grid"
+import { Grid } from "./grid.js"
 import { Panel } from "./panel.js"
+import { TillingBackgroundMixin } from "../src/background-mixin.js"
 
 export {
-    RootGrid,
-    Panel
+    Grid,
+    Panel,
+    TillingBackgroundMixin
 }

@@ -21,6 +21,7 @@
   "webpack-cli": "^5.1.4"
  },
  "dependencies": {
+  "@ellementul/uee-core": "^3.0.0",
   "@pixi/tilemap": "^5.0.1",
   "@pixi/ui": "^2.1.2",
   "node-static": "^0.7.11",

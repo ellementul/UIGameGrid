@@ -1,7 +1,7 @@
 import { Container } from "pixi.js"
 
 import { WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { TillingBackgroundMixin } from "./backgroundMixin.js"
+import { TillingBackgroundMixin } from "./background-mixin.js"
 
 const MIN_SUBDIVIDE = 16
 const MAX_SUBDIVIDE = 64
