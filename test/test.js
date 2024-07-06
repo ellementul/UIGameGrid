@@ -25,12 +25,6 @@ requestAnimationFrame( animate )
 const member = new UIMemberFactory
 window.__PIXI_APP__ = member.pixiApp // Pixi.js DevTools
 
-const rootGrid = new RootGrid(member.pixiApp)
-member.pixiApp.stage.addChild(rootGrid)
-rootGrid.setBgDebug()
-
-rootGrid.addChild(new SwitchPanel(member))
-
 const listPanels = new ListPanels(new Map([
     ["Grid", new DemoGrid],
     ["Panel", new DemoPanel]
@@ -43,6 +37,7 @@ member.subscribe(switchEvent, ({ state: namePanel }) => {
     listPanels.showPanel(namePanel)
 })
 
-rootGrid.addChild(listPanels)
+member.rootGrid.addChild(listPanels)
+member.rootGrid.addChild(new SwitchPanel(member))
 
 
