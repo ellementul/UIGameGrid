@@ -5,12 +5,11 @@ import { Grid, Panel, TillingBackgroundMixin } from "../src/index.js"
 import switchEvent from "./switch-panels-event.js"
 
 
-export function SwitchPanel(member) {
+export function SwitchPanel(member, panelNames) {
     const panel = new Panel
     panel.setBgDebug()
     panel.posizes.top = 0
 
-    const panelNames = ["Grid", "Panel"]
     panelNames.forEach((namePanel, index) => {
         const button = new SwitchPanelButton(namePanel)
         button.onPress.connect(() => member.send(switchEvent, { state: namePanel }))
@@ -22,8 +21,8 @@ export function SwitchPanel(member) {
 
 function Cell(element, offset = 0) {
     const subGrid = new Grid
-    subGrid.tillingSizes.width = 2
-    subGrid.tillingPosition.x = offset * 2
+    subGrid.tillingSizes.width = 4
+    subGrid.tillingPosition.x = offset * 4
     subGrid.addChild(element)
 
     return subGrid

@@ -1,5 +1,5 @@
 import { CompositeTilemap } from "@pixi/tilemap"
-import { Graphics, Point, Texture } from "pixi.js"
+import { DEPRECATED_SCALE_MODES, Graphics, Point, Rectangle, Sprite, Texture } from "pixi.js"
 
 export function TillingBackgroundMixin(object) {
     object = Object.assign(object, {
@@ -11,7 +11,7 @@ export function TillingBackgroundMixin(object) {
 
             this.background = new Graphics
             this.background.color = color
-            this.background.isGraphics = true
+            this.background.isColor = true
             this.addChildAt(this.background, 0)
         },
 
@@ -26,11 +26,23 @@ export function TillingBackgroundMixin(object) {
             this.addChildAt(this.background, 0)
         },
 
+        setTillingBg(texture) {
+            if(this.background)
+                this.background.removeFromParent()
+
+            texture.source.scaleMode = DEPRECATED_SCALE_MODES.NEAREST
+            this.background = new CompositeTilemap
+            this.background.atlas = texture
+            this.background.tileSize = this.background.atlas.width / 3
+            this.background.isTilling = true
+            this.addChildAt(this.background, 0)
+        },
+
         updateBackground() {
             if(!this.background)
                 return
 
-            if(this.background.isGraphics) {
+            if(this.background.isColor) {
 
                 this.background.scale.set(1, 1)
                 this.background.clear()
@@ -56,6 +68,29 @@ export function TillingBackgroundMixin(object) {
 
                 this.background.rect(0, 0, this.tillingSizes.width * this.background.tileSize, this.tillingSizes.height * this.background.tileSize)
                     .stroke({ color: 'yellow' })
+            }
+
+            if(this.background.isTilling) {
+                const tileScale = this.tileSize / this.background.tileSize 
+                this.background.scale.set(tileScale, tileScale)
+
+                this.background.clear()
+
+                for (let y = 0; y < this.tillingSizes.height; y++) {
+                    for (let x = 0; x < this.tillingSizes.width; x++) {
+                        this.background.tile(
+                            this.background.atlas, 
+                            x * this.background.tileSize, 
+                            y * this.background.tileSize,
+                            {
+                                u: calcBound(x, this.tillingSizes.width) * this.background.tileSize,
+                                v: calcBound(y, this.tillingSizes.height) * this.background.tileSize,
+                                tileWidth: this.background.tileSize,
+                                tileHeight: this.background.tileSize
+                            }
+                        )
+                    }
+                }
             }
         }
     })
@@ -86,25 +121,14 @@ export function TillingBackgroundMixin(object) {
         }).bind(object)
     }
 }
-            
-            // updateTilling() {
-            //     this.tileMap.clear()
-                
-            //     if(this.tileMod == ONE_TILE) {
-            //         for (let y = 0; y < this.height; y += this.tileSize) {
-            //             for (let x = 0; x < this.width; x += this.tileSize) {
-            //                 this.tileMap.tile(this.textures[0], x, y)
-            //             }
-            //         }
-            //     }
-            // }
 
-        // setBackgroundTiles(texture) {
-        //     this.clearBackground()
-        //     this.background.tileMap = new CompositeTilemap
-        //     this.addChild(this.background.tileMap)
 
-        //     this.background.textures = [texture]
-        //     this.background.tileSize = texture.width > texture.height ? texture.height : texture.width
-        //     this.updateSizes()
-        // }
+function calcBound(coord, limit) {
+    if(coord == 0)
+        return 0
+
+    if(coord + 1 == limit)
+        return 2
+
+    return 1
+}
