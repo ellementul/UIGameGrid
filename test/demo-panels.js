@@ -1,4 +1,5 @@
-import { Grid, Panel, Text } from "../src/index.js"
+import { Graphics, Texture } from "pixi.js"
+import { Grid, Input, Panel, Text } from "../src/index.js"
 
 export function DemoGrid() {
     const demoGrid = new Grid
@@ -137,7 +138,7 @@ export function DemoBackground(background) {
     return demoPanel
 }
 
-export function DemoText() {
+export function DemoText(bgInput) {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
     demoGrid.tillingSizes.width = 8
@@ -146,10 +147,25 @@ export function DemoText() {
 
     const subDemoGrid = new Panel
     subDemoGrid.subTilling = 2
+    subDemoGrid.posizes.top = 2
     subDemoGrid.posizes.right = 0.5
     subDemoGrid.posizes.left = 0.5
     subDemoGrid.posizes.bottom = 0.5
     demoGrid.addChild(subDemoGrid)
+
+    const inputPanel = new Panel
+    inputPanel.subTilling = 4
+    inputPanel.posizes.top = 0
+    inputPanel.posizes.bottom = 1
+    inputPanel.posizes.right = 0.5
+    inputPanel.posizes.left = 0.5
+    inputPanel.setTillingBg(bgInput)
+    demoGrid.addChild(inputPanel)
+
+    const input = new Input({
+        placeholder: "Enter Text"
+    })
+    inputPanel.addChild(input)
 
     const words = 'Hell! '.repeat(40)
 

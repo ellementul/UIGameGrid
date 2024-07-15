@@ -29,13 +29,14 @@ window.__PIXI_APP__ = member.pixiApp // Pixi.js DevTools
 
 await Assets.load('Pixel.ttf')
 const background3x3 = await Assets.load('background3x3.png')
+const bgInput = await Assets.load('bgInput3x3.png')
 
 
 const panels = new Map([
     ["Grid", new DemoGrid],
     ["Panel", new DemoPanel],
     ["Background", new DemoBackground(background3x3)],
-    ["Text", new DemoText]
+    ["Text", new DemoText(bgInput)]
 ])
 const listPanels = new ListPanels(panels)
 

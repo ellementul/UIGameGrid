@@ -5,6 +5,15 @@ export function TillingBackgroundMixin(object) {
     object = Object.assign(object, {
         isTillingGrid: true,
 
+        clearBg() {
+            if(this.background)
+                this.background.removeFromParent()
+
+            this.background = new Sprite(Texture.EMPTY)
+            this.background.isEmpty = true
+            this.addChildAt(this.background, 0)
+        },
+
         setBgColor(color) {
             if(this.background)
                 this.background.removeFromParent()
@@ -41,6 +50,13 @@ export function TillingBackgroundMixin(object) {
         updateBackground() {
             if(!this.background)
                 return
+
+            if(this.background.isEmpty) {
+                this.background.scale.set(
+                    (this.tillingSizes.width * this.tileSize) / this.background.texture.width,
+                    (this.tillingSizes.height * this.tileSize) / this.background.texture.height
+                )
+            }
 
             if(this.background.isColor) {
 
@@ -120,6 +136,10 @@ export function TillingBackgroundMixin(object) {
                 this.children.forEach(child => child.isTillingGrid && child.updateSizes())
         }).bind(object)
     }
+
+    object.clearBg()
+
+    return object
 }
 
 
