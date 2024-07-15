@@ -1,7 +1,7 @@
 import * as http from 'http'
 import * as ns from 'node-static'
 
-const file = new ns.Server('./test')
+const file = new ns.Server('./test', { cache: 1 })
 const port = 8080
 
 http.createServer(function (request, response) {

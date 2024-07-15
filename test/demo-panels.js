@@ -1,4 +1,4 @@
-import { Grid, Panel } from "../src/index.js"
+import { Grid, Panel, Text } from "../src/index.js"
 
 export function DemoGrid() {
     const demoGrid = new Grid
@@ -135,4 +135,32 @@ export function DemoBackground(background) {
     demoPanel.addChild(rightTopAngle)
 
     return demoPanel
+}
+
+export function DemoText() {
+    const demoGrid = new Grid
+    demoGrid.tillingPosition.set(1,1)
+    demoGrid.tillingSizes.width = 8
+    demoGrid.tillingSizes.height = 8  
+    demoGrid.setBgColor('black')
+
+    const subDemoGrid = new Panel
+    subDemoGrid.subTilling = 2
+    subDemoGrid.posizes.right = 0.5
+    subDemoGrid.posizes.left = 0.5
+    subDemoGrid.posizes.bottom = 0.5
+    demoGrid.addChild(subDemoGrid)
+
+    const text = new Text({
+        text:'Hello hell!\nhell hell hell hell hell hell hell hell hell hell hell hell hell hell hell hell hell',
+        style:{
+            fontFamily:'Pixel',
+            fill: 'red',
+        }
+    })
+    text.anchor.y = 0
+    text.padding = 0.5
+    subDemoGrid.addChild(text)
+
+    return demoGrid
 }

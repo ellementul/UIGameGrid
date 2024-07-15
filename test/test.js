@@ -5,7 +5,7 @@ import { RootGrid } from "../src/root-grid.js"
 import { Stats } from './stats.js'
 
 import { SwitchPanel } from "./switch-panel.js"
-import { DemoBackground, DemoGrid, DemoPanel } from "./demo-panels.js"
+import { DemoBackground, DemoGrid, DemoPanel, DemoText } from "./demo-panels.js"
 import { ListPanels } from "./list.js"
 
 import switchEvent from "./switch-panels-event.js"
@@ -27,13 +27,15 @@ requestAnimationFrame( animate )
 const member = new UIMemberFactory
 window.__PIXI_APP__ = member.pixiApp // Pixi.js DevTools
 
+await Assets.load('Pixel.ttf')
 const background3x3 = await Assets.load('background3x3.png')
 
 
 const panels = new Map([
     ["Grid", new DemoGrid],
     ["Panel", new DemoPanel],
-    ["Background", new DemoBackground(background3x3)]
+    ["Background", new DemoBackground(background3x3)],
+    ["Text", new DemoText]
 ])
 const listPanels = new ListPanels(panels)
 

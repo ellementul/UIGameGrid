@@ -1,6 +1,5 @@
-import { Text } from "pixi.js"
 import { ButtonContainer } from "@pixi/ui"
-import { Grid, Panel, TillingBackgroundMixin } from "../src/index.js"
+import { Text, Grid, Panel, TillingBackgroundMixin } from "../src/index.js"
 
 import switchEvent from "./switch-panels-event.js"
 
@@ -38,11 +37,8 @@ function SwitchPanelButton(text) {
     const textButton = new Text({
         text,
         style: {
-            fontFamily: 'Arial',
+            fontFamily: 'Pixel',
             fontSize: 24,
-            fill: 0xff1010,
-            align: 'center',
-            
         }
     })
     button.addChild(textButton)
