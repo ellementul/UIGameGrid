@@ -1,4 +1,3 @@
-import { Graphics, Texture } from "pixi.js"
 import { Grid, Input, Panel, Text } from "../src/index.js"
 
 export function DemoGrid() {
@@ -145,14 +144,6 @@ export function DemoText(bgInput) {
     demoGrid.tillingSizes.height = 8  
     demoGrid.setBgColor('black')
 
-    const subDemoGrid = new Panel
-    subDemoGrid.subTilling = 2
-    subDemoGrid.posizes.top = 2
-    subDemoGrid.posizes.right = 0.5
-    subDemoGrid.posizes.left = 0.5
-    subDemoGrid.posizes.bottom = 0.5
-    demoGrid.addChild(subDemoGrid)
-
     const inputPanel = new Panel
     inputPanel.subTilling = 4
     inputPanel.posizes.top = 0
@@ -167,6 +158,14 @@ export function DemoText(bgInput) {
     })
     inputPanel.addChild(input)
 
+    const textPanel = new Panel
+    textPanel.subTilling = 2
+    textPanel.posizes.top = 2
+    textPanel.posizes.right = 0.5
+    textPanel.posizes.left = 0.5
+    textPanel.posizes.bottom = 0.5
+    demoGrid.addChild(textPanel)
+
     const words = 'Hell! '.repeat(40)
 
     const text = new Text({
@@ -178,7 +177,7 @@ export function DemoText(bgInput) {
     })
     text.anchor.y = 0
     text.padding = 0.5
-    subDemoGrid.addChild(text)
+    textPanel.addChild(text)
 
     return demoGrid
 }

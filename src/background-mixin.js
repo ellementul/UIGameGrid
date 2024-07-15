@@ -1,5 +1,5 @@
 import { CompositeTilemap } from "@pixi/tilemap"
-import { DEPRECATED_SCALE_MODES, Graphics, Point, Rectangle, Sprite, Texture } from "pixi.js"
+import { DEPRECATED_SCALE_MODES, Graphics, Sprite, Texture } from "pixi.js"
 
 export function TillingBackgroundMixin(object) {
     object = Object.assign(object, {

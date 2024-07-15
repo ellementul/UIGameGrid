@@ -1,7 +1,5 @@
 import { UIMemberFactory } from "../src/ui-member.js"
 
-import { RootGrid } from "../src/root-grid.js"
-
 import { Stats } from './stats.js'
 
 import { SwitchPanel } from "./switch-panel.js"
@@ -9,7 +7,6 @@ import { DemoBackground, DemoGrid, DemoPanel, DemoText } from "./demo-panels.js"
 import { ListPanels } from "./list.js"
 
 import switchEvent from "./switch-panels-event.js"
-import { Panel } from "../src/panel.js"
 import { Assets } from "pixi.js"
 
 const stats = new Stats()
