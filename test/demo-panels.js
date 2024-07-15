@@ -151,8 +151,10 @@ export function DemoText() {
     subDemoGrid.posizes.bottom = 0.5
     demoGrid.addChild(subDemoGrid)
 
+    const words = 'Hell! '.repeat(40)
+
     const text = new Text({
-        text:'Hello hell!\nhell hell hell hell hell hell hell hell hell hell hell hell hell hell hell hell hell',
+        text:'Hello hell!\n' + words,
         style:{
             fontFamily:'Pixel',
             fill: 'red',
