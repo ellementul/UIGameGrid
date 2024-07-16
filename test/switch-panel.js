@@ -1,47 +1,39 @@
-import { ButtonContainer } from "@pixi/ui"
-import { Text, Grid, Panel, TillingBackgroundMixin } from "../src/index.js"
+import { Text, Grid, Panel, Button } from "../src/index.js"
 
 import switchEvent from "./switch-panels-event.js"
 
 
-export function SwitchPanel(member, panelNames) {
+export function SwitchPanel(member, panelNames, background) {
     const panel = new Panel
     panel.setBgDebug()
     panel.posizes.top = 0
 
     panelNames.forEach((namePanel, index) => {
-        const button = new SwitchPanelButton(namePanel)
-        button.onPress.connect(() => member.send(switchEvent, { state: namePanel }))
-        panel.addChild(new Cell(button, index))
+        const button = new SwitchPanelButton(namePanel, background)
+        button.onPress = () => member.send(switchEvent, { state: namePanel })
+        button.tillingSizes.width = 12
+        button.tillingPosition.x = index * 6
+        panel.addChild(button)
     })
 
     return panel
 }
 
-function Cell(element, offset = 0) {
-    const subGrid = new Grid
-    subGrid.tillingSizes.width = 4
-    subGrid.tillingPosition.x = offset * 4
-    subGrid.addChild(element)
 
-    return subGrid
-}
-
-
-function SwitchPanelButton(text) {
-    const button = new ButtonContainer()
-    TillingBackgroundMixin(button)
+function SwitchPanelButton(text, background) {
+    const button = new Button
     button.subTilling = 2
-    button.setBgDebug()
+    button.tillingSizes.height = 2
+    button.setTillingBg(background)
 
-    const textButton = new Text({
+    const label = new Text({
         text,
         style: {
             fontFamily: 'Pixel',
             fontSize: 24,
         }
     })
-    button.addChild(textButton)
+    button.addChild(label)
 
     return button
 }

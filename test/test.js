@@ -45,4 +45,4 @@ member.subscribe(switchEvent, ({ state: namePanel }) => {
 })
 
 member.rootGrid.addChild(listPanels)
-member.rootGrid.addChild(new SwitchPanel(member, [...panels.keys()]))
+member.rootGrid.addChild(new SwitchPanel(member, [...panels.keys()], background3x3))

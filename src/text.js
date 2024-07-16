@@ -1,24 +1,25 @@
 import { BitmapText as PixiText } from "pixi.js";
 
-export class Text extends PixiText {
-    constructor(parentOptions) {
-        super(parentOptions)
+export function Text(options) {
 
-        this.isTillingGrid = true
-        this.anchor.set(0.5)
-    }
+    const text = new PixiText(options)
 
-    updateSizes() {
+    text.isTillingGrid = true
+    text.anchor.set(0.5)
+
+
+    text.updateSizes = (function () {
         if(!this.parent || !this.parent.isTillingGrid)
             return
 
         this.style.wordWrap = true
         this.style.wordWrapWidth = this.parent.tillingSizes.width * this.parent.tileSize
 
-        
         this.position.set(
             this.parent.tillingSizes.width * this.parent.tileSize * this.anchor.x, 
             this.parent.tillingSizes.height * this.parent.tileSize * this.anchor.y
         )
-    }
+    }).bind(text)
+
+    return text
 }

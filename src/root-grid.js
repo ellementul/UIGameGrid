@@ -1,7 +1,7 @@
 import { Container } from "pixi.js"
 
 import { WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { TillingBackgroundMixin } from "./background-mixin.js"
+import { TillingMixin } from "./tilling-mixin.js"
 
 const MIN_SUBDIVIDE = 16
 const MAX_SUBDIVIDE = 64
@@ -14,7 +14,7 @@ class RootGrid extends Container {
 
         this.isTillingGrid = true
 
-        TillingBackgroundMixin(this)
+        TillingMixin(this)
 
         this.app = app
 
