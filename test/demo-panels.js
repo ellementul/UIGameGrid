@@ -169,7 +169,7 @@ export function DemoText(bgInput) {
     const words = 'Hell! '.repeat(40)
 
     const text = new Text({
-        text:'Hello hell!\n' + words,
+        text:'Hello hell!\n',
         style:{
             fontFamily:'Pixel',
             fill: 'red',
@@ -178,6 +178,11 @@ export function DemoText(bgInput) {
     text.anchor.y = 0
     text.padding = 0.5
     textPanel.addChild(text)
+    
+    input.onEnter.connect(() => {
+        text.text = text.text + input.value
+        input.value = ''
+    })
 
     return demoGrid
 }
