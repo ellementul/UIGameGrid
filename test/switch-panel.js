@@ -1,11 +1,10 @@
-import { Text, Grid, Panel, Button } from "../src/index.js"
+import { Text, Grid, Panel, Button, NineTillingBg } from "../src/index.js"
 
 import switchEvent from "./switch-panels-event.js"
 
 
 export function SwitchPanel(member, panelNames, background) {
     const panel = new Panel
-    panel.setBgDebug()
     panel.posizes.top = 0
 
     panelNames.forEach((namePanel, index) => {
@@ -24,7 +23,7 @@ function SwitchPanelButton(text, background) {
     const button = new Button
     button.subTilling = 2
     button.tillingSizes.y = 2
-    button.setTillingBg(background)
+    button.setBg(new NineTillingBg(background))
 
     const label = new Text({
         text,

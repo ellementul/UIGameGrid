@@ -6,6 +6,7 @@ import { Input } from "./input.js"
 import { SpriteBg } from "./sprite-background.js"
 import { DebugBg } from "./debug-background.js"
 import { TillingBg } from "./tilling-background.js"
+import { NineTillingBg } from "./nine-tilling-bg.js"
 import { SetBgMixin } from "./tilling-mixin.js"
 import { UIMemberFactory } from "./ui-member.js"
 
@@ -17,6 +18,7 @@ export {
     Input,
     SpriteBg,
     TillingBg,
+    NineTillingBg,
     DebugBg,
     SetBgMixin,
     UIMemberFactory

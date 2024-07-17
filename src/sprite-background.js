@@ -1,4 +1,4 @@
-import { Sprite } from "pixi.js"
+import { Sprite, Texture } from "pixi.js"
 
 export class SpriteBg extends Sprite {
     constructor() {
@@ -8,6 +8,11 @@ export class SpriteBg extends Sprite {
         this.isBackground = true
 
         this.on('added', () => this.updateSizes())
+    }
+
+    fillColor(color) {
+        this.texture = Texture.WHITE
+        this.tint = color
     }
 
     updateSizes() {

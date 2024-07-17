@@ -47,36 +47,3 @@ export function SetBgMixin(object) {
     return object
 }
 
-class NineTillingBg extends TileMap {
-    constructor(texture) {
-        super()
-
-        const source = texture.source
-        source.scaleMode = DEPRECATED_SCALE_MODES.NEAREST
-        this.sliceAtlas(source, new Point(3, 3))
-        
-        this.tillingSizes = new Point(1, 1)
-    }
-
-    updateSizes() {
-        this.clear()
-
-        for (let y = 0; y < this.tillingSizes.y; y++) {
-            for (let x = 0; x < this.tillingSizes.x; x++) {
-                const frame = new Point(this.calcBound(x, this.tillingSizes.x), this.calcBound(y, this.tillingSizes.y))
-                this.set({x, y}, this.atlas.frames[frame.y][frame.x])
-            }
-        }
-    }
-
-    calcBound(coord, limit) {
-        if(coord == 0)
-            return 0
-    
-        if(coord + 1 == limit)
-            return 2
-    
-        return 1
-    }
-}
-

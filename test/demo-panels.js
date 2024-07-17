@@ -1,4 +1,4 @@
-import { Grid, Input, Panel, SpriteBg, TillingBg, Text } from "../src/index.js"
+import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg } from "../src/index.js"
 
 
 export function DemoGrid() {
@@ -81,41 +81,25 @@ export function DemoPanel() {
 
 export function DemoBackground(background) {
     const demoPanel = new Panel
-    demoPanel.debug(true)
 
     const centerPanel = new Panel
-    centerPanel.subTilling = 2
     centerPanel.setBg(new TillingBg(background))
     demoPanel.addChild(centerPanel)
 
 
-    // const topPanel = new Panel
-    // topPanel.subTilling = 2
-    // topPanel.posizes.top = 0
-    // topPanel.posizes.bottom = 1
-    // topPanel.setTillingBg(background)
-    // demoPanel.addChild(topPanel)
+    const topPanel = new Panel
+    topPanel.subTilling = 2
+    topPanel.posizes.top = 0
+    topPanel.posizes.bottom = 1
+    topPanel.setBg(new NineTillingBg(background))
+    demoPanel.addChild(topPanel)
 
-    const bottomPanel = new Panel
-    bottomPanel.subTilling = 2
-    bottomPanel.posizes.top = 1
-    bottomPanel.posizes.bottom = 0
-    bottomPanel.debug(true)
-    demoPanel.addChild(bottomPanel)
-
-    // const leftPanel = new Panel
-    // leftPanel.subTilling = 2
-    // leftPanel.posizes.left = 0
-    // leftPanel.posizes.right = 1
-    // leftPanel.setTillingBg(background)
-    // demoPanel.addChild(leftPanel)
-
-    const rightPanel = new Panel
-    rightPanel.subTilling = 2
-    rightPanel.posizes.left = 1
-    rightPanel.posizes.right = 0
-    rightPanel.debug(true)
-    demoPanel.addChild(rightPanel)
+    const leftPanel = new Panel
+    leftPanel.subTilling = 2
+    leftPanel.posizes.left = 0
+    leftPanel.posizes.right = 1
+    leftPanel.setBg(new NineTillingBg(background))
+    demoPanel.addChild(leftPanel)
 
     const leftTopAngle = new Panel
     leftTopAngle.subTilling = 2
@@ -126,14 +110,6 @@ export function DemoBackground(background) {
     leftTopAngle.setBg(background)
     demoPanel.addChild(leftTopAngle)
 
-    const rightTopAngle = new Panel
-    rightTopAngle.subTilling = 2
-    rightTopAngle.posizes.left = 1
-    rightTopAngle.posizes.right = 0
-    rightTopAngle.posizes.top = 0
-    rightTopAngle.posizes.bottom = 1
-    rightTopAngle.debug(true)
-    demoPanel.addChild(rightTopAngle)
 
     const rightBottomAngle = new Panel
     rightBottomAngle.subTilling = 2
@@ -151,8 +127,10 @@ export function DemoText(bgInput) {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
     demoGrid.tillingSizes.x = 8
-    demoGrid.tillingSizes.y = 8  
-    demoGrid.setBgColor('black')
+    demoGrid.tillingSizes.y = 8
+    const blackBg = new SpriteBg
+    blackBg.fillColor('#171612')
+    demoGrid.setBg(blackBg)
 
     const inputPanel = new Panel
     inputPanel.subTilling = 4
@@ -160,7 +138,7 @@ export function DemoText(bgInput) {
     inputPanel.posizes.bottom = 1
     inputPanel.posizes.right = 0.5
     inputPanel.posizes.left = 0.5
-    inputPanel.setTillingBg(bgInput)
+    inputPanel.setBg(new NineTillingBg(bgInput))
     demoGrid.addChild(inputPanel)
 
     const input = new Input({
@@ -175,8 +153,6 @@ export function DemoText(bgInput) {
     textPanel.posizes.left = 0.5
     textPanel.posizes.bottom = 0.5
     demoGrid.addChild(textPanel)
-
-    const words = 'Hell! '.repeat(40)
 
     const text = new Text({
         text:'Hello hell!\n',

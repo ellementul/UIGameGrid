@@ -30,19 +30,19 @@ const bgInput = await Assets.load('bgInput3x3.png')
 
 
 const panels = new Map([
-    // ["Grid", new DemoGrid],
-    // ["Panel", new DemoPanel],
+    ["Grid", new DemoGrid],
+    ["Panel", new DemoPanel],
     ["Background", new DemoBackground(background3x3)],
-    // ["Text", new DemoText(bgInput)]
+    ["Text", new DemoText(bgInput)]
 ])
 const listPanels = new ListPanels(panels)
 
-// setTimeout(listPanels.hideAll, 0)
+setTimeout(listPanels.hideAll, 0)
 
-// member.subscribe(switchEvent, ({ state: namePanel }) => {
-//     listPanels.hideAll()
-//     listPanels.showPanel(namePanel)
-// })
+member.subscribe(switchEvent, ({ state: namePanel }) => {
+    listPanels.hideAll()
+    listPanels.showPanel(namePanel)
+})
 
 member.rootGrid.addChild(listPanels)
-// member.rootGrid.addChild(new SwitchPanel(member, [...panels.keys()], background3x3))
+member.rootGrid.addChild(new SwitchPanel(member, [...panels.keys()], background3x3))
