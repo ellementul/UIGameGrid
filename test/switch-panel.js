@@ -10,8 +10,8 @@ export function SwitchPanel(member, panelNames, background) {
     panelNames.forEach((namePanel, index) => {
         const button = new SwitchPanelButton(namePanel, background)
         button.onPress = () => member.send(switchEvent, { state: namePanel })
-        button.tillingSizes.x = 12
-        button.tillingPosition.x = index * 6
+        button.tillingSizes.x = 14
+        button.tillingPosition.x = index * 7
         panel.addChild(button)
     })
 

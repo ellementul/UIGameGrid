@@ -1,7 +1,7 @@
 import { Container, Point } from "pixi.js"
 
 import { WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { SetBgMixin } from "./tilling-mixin.js"
+import { SetBgMixin } from "./backgrounds/bg-mixin.js"
 
 const MIN_SUBDIVIDE = 16
 const MAX_SUBDIVIDE = 64

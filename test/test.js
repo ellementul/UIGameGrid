@@ -5,9 +5,11 @@ import { Stats } from './stats.js'
 import { SwitchPanel } from "./switch-panel.js"
 import { DemoBackground, DemoGrid, DemoPanel, DemoText } from "./demo-panels.js"
 import { ListPanels } from "./list.js"
+import { ImagePicker } from "./imagePicker.js"
 
 import switchEvent from "./switch-panels-event.js"
 import { Assets } from "pixi.js"
+
 
 const stats = new Stats()
 stats.showPanel(0)
@@ -33,7 +35,8 @@ const panels = new Map([
     ["Grid", new DemoGrid],
     ["Panel", new DemoPanel],
     ["Background", new DemoBackground(background3x3)],
-    ["Text", new DemoText(bgInput)]
+    ["Text", new DemoText(bgInput)],
+    ["OpenPickerImage", new ImagePicker(background3x3, member)]
 ])
 const listPanels = new ListPanels(panels)
 

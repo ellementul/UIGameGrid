@@ -1,32 +1,32 @@
 {
- "name": "@ellementul/ui-grid-member",
- "version": "1.0.0",
- "description": "Interface Grid for games",
- "repository": {
-  "type": "git",
-  "url": "git+https://github.com/ellementul/UIGameGrid.git"
- },
- "keywords": [
-  "UI",
-  "Game"
- ],
- "main": "src/index.js",
- "type": "module",
- "scripts": {
-  "start": "node server.js & webpack && fg",
-  "build": "webpack"
- },
- "devDependencies": {
-  "webpack": "^5.92.1",
-  "webpack-cli": "^5.1.4",
-  "node-static": "^0.7.11"
- },
- "dependencies": {
-  "@ellementul/uee-core": "^3.0.0",
-  "@pixi/tilemap": "^5.0.1",
-  "@pixi/ui": "^2.1.2",
-  "pixi-viewport": "^5.0.3",
-  "pixi.js": "^8.2.0",
-  "stats.js": "^0.17.0"
- }
+    "name": "@ellementul/ui-grid-member",
+    "version": "1.0.0",
+    "description": "Interface Grid for games",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ellementul/UIGameGrid.git"
+    },
+    "keywords": [
+        "UI",
+        "Game"
+    ],
+    "main": "src/index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js & webpack && fg",
+        "build": "webpack"
+    },
+    "devDependencies": {
+        "webpack": "^5.92.1",
+        "webpack-cli": "^5.1.4",
+        "node-static": "^0.7.11"
+    },
+    "dependencies": {
+        "@ellementul/uee-core": "^3.3.0",
+        "@pixi/tilemap": "^5.0.1",
+        "@pixi/ui": "^2.1.2",
+        "pixi-viewport": "^5.0.3",
+        "pixi.js": "^8.2.0",
+        "stats.js": "^0.17.0"
+    }
 }

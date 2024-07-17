@@ -1,11 +1,6 @@
-import { Container, DEPRECATED_SCALE_MODES, Graphics, Point, Rectangle, Sprite, Texture } from "pixi.js"
-import { TileMap } from "./tilemap.js"
+import { DEPRECATED_SCALE_MODES, Texture } from "pixi.js"
 import { SpriteBg } from "./sprite-background.js"
 import { DebugBg } from "./debug-background.js"
-
-const ONE_TILES_TYPE = "OneTilesType"
-const TWO_TILES_TYPE = "OneTilesType"  
-const NINE_TILES_TYPE = "NineTilesType" 
 
 export function SetBgMixin(object) {
     object = Object.assign(object, {

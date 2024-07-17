@@ -1,5 +1,5 @@
 import { DEPRECATED_SCALE_MODES, Point } from "pixi.js"
-import { TileMap } from "./tilemap.js"
+import { TileMap } from "../tilemap.js"
 
 export class TillingBg extends TileMap {
     constructor(texture) {
