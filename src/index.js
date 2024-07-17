@@ -3,7 +3,10 @@ import { Panel } from "./panel.js"
 import { Button } from "./button.js"
 import { Text } from "./text.js"
 import { Input } from "./input.js"
-import { TillingMixin } from "./tilling-mixin.js"
+import { SpriteBg } from "./sprite-background.js"
+import { DebugBg } from "./debug-background.js"
+import { TillingBg } from "./tilling-background.js"
+import { SetBgMixin } from "./tilling-mixin.js"
 import { UIMemberFactory } from "./ui-member.js"
 
 export {
@@ -12,6 +15,9 @@ export {
     Button,
     Text,
     Input,
-    TillingMixin,
+    SpriteBg,
+    TillingBg,
+    DebugBg,
+    SetBgMixin,
     UIMemberFactory
 }

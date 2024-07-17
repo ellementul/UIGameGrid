@@ -1,5 +1,5 @@
 import { NONE_MODE, WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { TillingMixin } from "./tilling-mixin.js"
+import { SetBgMixin } from "./tilling-mixin.js"
 import { Container, Point } from "pixi.js"
 
 class Grid extends Container {
@@ -8,13 +8,11 @@ class Grid extends Container {
 
         this.isTillingGrid = true
 
-        TillingMixin(this)
+        
         
         this.tileSize = 1
         this.subTilling = 1
-        this.tillingSizes = {}
-        this.tillingSizes.width = 1
-        this.tillingSizes.height = 1
+        this.tillingSizes = new Point(1, 1)
         this.tillingPosition = new Point
 
         this.cache = {
@@ -26,12 +24,10 @@ class Grid extends Container {
             subTilling: 1
         }
 
+        this.on('added', () => this.updateSizes(), this)
         this.onRender = () => this.updateSizes()
-    }
 
-    addChild(child) {
-        super.addChild(child)
-        this.updateSizes()
+        SetBgMixin(this)
     }
 
     updateSizes() {
@@ -40,8 +36,8 @@ class Grid extends Container {
 
         this.tileSize = this.parent.tileSize / this.subTilling
 
-        if(this.cache.width == this.tillingSizes.width
-            && this.cache.height == this.tillingSizes.height
+        if(this.cache.width == this.tillingSizes.x
+            && this.cache.height == this.tillingSizes.y
             && this.cache.x == this.tillingPosition.x
             && this.cache.y == this.tillingPosition.y
             && this.cache.tileSize == this.tileSize
@@ -49,23 +45,14 @@ class Grid extends Container {
         )
             return
 
-        this.cache.width = this.tillingSizes.width
-        this.cache.height = this.tillingSizes.height
+        this.cache.width = this.tillingSizes.x
+        this.cache.height = this.tillingSizes.y
         this.cache.x = this.tillingPosition.x
         this.cache.y = this.tillingPosition.y
         this.cache.tileSize = this.tileSize
         this.cache.subTilling = this.subTilling
 
         this.position.set(this.tillingPosition.x * this.parent.tileSize, this.tillingPosition.y * this.parent.tileSize)
-
-        if(this.position.x >= this.parent.tillingSizes.width * this.parent.tileSize 
-            || this.position.y >= this.parent.tillingSizes.height * this.parent.tileSize
-        )
-            return this.visible = false
-        else
-            this.visible = true
-
-        this.updateBackground()
 
         this.children.forEach(child => child.isTillingGrid && child.updateSizes())
     }

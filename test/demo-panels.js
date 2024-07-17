@@ -1,18 +1,19 @@
-import { Grid, Input, Panel, Text } from "../src/index.js"
+import { Grid, Input, Panel, SpriteBg, TillingBg, Text } from "../src/index.js"
+
 
 export function DemoGrid() {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
-    demoGrid.tillingSizes.width = 8
-    demoGrid.tillingSizes.height = 8  
-    demoGrid.setBgDebug()
+    demoGrid.tillingSizes.x = 8
+    demoGrid.tillingSizes.y = 8  
+    demoGrid.debug(true)
 
     const demoSubGrid = new Grid
     demoSubGrid.subTilling = 2
     demoSubGrid.tillingPosition.set(1,1)
-    demoSubGrid.tillingSizes.width = 8
-    demoSubGrid.tillingSizes.height = 8
-    demoSubGrid.setBgDebug()
+    demoSubGrid.tillingSizes.x = 8
+    demoSubGrid.tillingSizes.y = 8
+    demoSubGrid.debug(true)
 
     demoGrid.addChild(demoSubGrid)
 
@@ -21,11 +22,11 @@ export function DemoGrid() {
 
 export function DemoPanel() {
     const demoPanel = new Panel
-    demoPanel.setBgDebug()
+    demoPanel.debug(true)
 
     const centerPanel = new Panel
     centerPanel.subTilling = 2
-    centerPanel.setBgDebug()
+    centerPanel.debug(true)
     demoPanel.addChild(centerPanel)
 
 
@@ -33,28 +34,28 @@ export function DemoPanel() {
     topPanel.subTilling = 3
     topPanel.posizes.top = 0
     topPanel.posizes.bottom = 1
-    topPanel.setBgDebug()
+    topPanel.debug(true)
     demoPanel.addChild(topPanel)
 
     const bottomPanel = new Panel
     bottomPanel.subTilling = 3
     bottomPanel.posizes.top = 1
     bottomPanel.posizes.bottom = 0
-    bottomPanel.setBgDebug()
+    bottomPanel.debug(true)
     demoPanel.addChild(bottomPanel)
 
     const leftPanel = new Panel
     leftPanel.subTilling = 3
     leftPanel.posizes.left = 0
     leftPanel.posizes.right = 1
-    leftPanel.setBgDebug()
+    leftPanel.debug(true)
     demoPanel.addChild(leftPanel)
 
     const rightPanel = new Panel
     rightPanel.subTilling = 3
     rightPanel.posizes.left = 1
     rightPanel.posizes.right = 0
-    rightPanel.setBgDebug()
+    rightPanel.debug(true)
     demoPanel.addChild(rightPanel)
 
     const leftTopAngle = new Panel
@@ -63,7 +64,7 @@ export function DemoPanel() {
     leftTopAngle.posizes.right = 1
     leftTopAngle.posizes.top = 0
     leftTopAngle.posizes.bottom = 1
-    leftTopAngle.setBgDebug()
+    leftTopAngle.debug(true)
     demoPanel.addChild(leftTopAngle)
 
     const rightTopAngle = new Panel
@@ -72,7 +73,7 @@ export function DemoPanel() {
     rightTopAngle.posizes.right = 0
     rightTopAngle.posizes.top = 0
     rightTopAngle.posizes.bottom = 1
-    rightTopAngle.setBgDebug()
+    rightTopAngle.debug(true)
     demoPanel.addChild(rightTopAngle)
 
     return demoPanel
@@ -80,40 +81,40 @@ export function DemoPanel() {
 
 export function DemoBackground(background) {
     const demoPanel = new Panel
-    demoPanel.setBgDebug()
+    demoPanel.debug(true)
 
     const centerPanel = new Panel
     centerPanel.subTilling = 2
-    centerPanel.setTillingBg(background)
+    centerPanel.setBg(new TillingBg(background))
     demoPanel.addChild(centerPanel)
 
 
-    const topPanel = new Panel
-    topPanel.subTilling = 2
-    topPanel.posizes.top = 0
-    topPanel.posizes.bottom = 1
-    topPanel.setTillingBg(background)
-    demoPanel.addChild(topPanel)
+    // const topPanel = new Panel
+    // topPanel.subTilling = 2
+    // topPanel.posizes.top = 0
+    // topPanel.posizes.bottom = 1
+    // topPanel.setTillingBg(background)
+    // demoPanel.addChild(topPanel)
 
     const bottomPanel = new Panel
     bottomPanel.subTilling = 2
     bottomPanel.posizes.top = 1
     bottomPanel.posizes.bottom = 0
-    bottomPanel.setBgDebug()
+    bottomPanel.debug(true)
     demoPanel.addChild(bottomPanel)
 
-    const leftPanel = new Panel
-    leftPanel.subTilling = 2
-    leftPanel.posizes.left = 0
-    leftPanel.posizes.right = 1
-    leftPanel.setTillingBg(background)
-    demoPanel.addChild(leftPanel)
+    // const leftPanel = new Panel
+    // leftPanel.subTilling = 2
+    // leftPanel.posizes.left = 0
+    // leftPanel.posizes.right = 1
+    // leftPanel.setTillingBg(background)
+    // demoPanel.addChild(leftPanel)
 
     const rightPanel = new Panel
     rightPanel.subTilling = 2
     rightPanel.posizes.left = 1
     rightPanel.posizes.right = 0
-    rightPanel.setBgDebug()
+    rightPanel.debug(true)
     demoPanel.addChild(rightPanel)
 
     const leftTopAngle = new Panel
@@ -122,7 +123,7 @@ export function DemoBackground(background) {
     leftTopAngle.posizes.right = 1
     leftTopAngle.posizes.top = 0
     leftTopAngle.posizes.bottom = 1
-    leftTopAngle.setTillingBg(background)
+    leftTopAngle.setBg(background)
     demoPanel.addChild(leftTopAngle)
 
     const rightTopAngle = new Panel
@@ -131,8 +132,17 @@ export function DemoBackground(background) {
     rightTopAngle.posizes.right = 0
     rightTopAngle.posizes.top = 0
     rightTopAngle.posizes.bottom = 1
-    rightTopAngle.setBgDebug()
+    rightTopAngle.debug(true)
     demoPanel.addChild(rightTopAngle)
+
+    const rightBottomAngle = new Panel
+    rightBottomAngle.subTilling = 2
+    rightBottomAngle.posizes.left = 1
+    rightBottomAngle.posizes.right = 0
+    rightBottomAngle.posizes.top = 1
+    rightBottomAngle.posizes.bottom = 0
+    rightBottomAngle.setBg(new SpriteBg(background))
+    demoPanel.addChild(rightBottomAngle)
 
     return demoPanel
 }
@@ -140,8 +150,8 @@ export function DemoBackground(background) {
 export function DemoText(bgInput) {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
-    demoGrid.tillingSizes.width = 8
-    demoGrid.tillingSizes.height = 8  
+    demoGrid.tillingSizes.x = 8
+    demoGrid.tillingSizes.y = 8  
     demoGrid.setBgColor('black')
 
     const inputPanel = new Panel

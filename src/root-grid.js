@@ -1,7 +1,7 @@
-import { Container } from "pixi.js"
+import { Container, Point } from "pixi.js"
 
 import { WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { TillingMixin } from "./tilling-mixin.js"
+import { SetBgMixin } from "./tilling-mixin.js"
 
 const MIN_SUBDIVIDE = 16
 const MAX_SUBDIVIDE = 64
@@ -14,8 +14,6 @@ class RootGrid extends Container {
 
         this.isTillingGrid = true
 
-        TillingMixin(this)
-
         this.app = app
 
         this.fitMode = HEIGHT_MODE
@@ -24,13 +22,13 @@ class RootGrid extends Container {
 
         this.tileSize = 1
 
-        this.tillingSizes = {}
-        this.tillingSizes.width = 1
-        this.tillingSizes.height = 1
+        this.tillingSizes = new Point(MIN_SUBDIVIDE, MIN_SUBDIVIDE)
         this.cacheWidth = 0
         this.cacheHeight = 0
-        
+
         this.onRender = () => this.updateSizes()
+
+        SetBgMixin(this)
     }
 
     updateSizes() {
@@ -46,19 +44,17 @@ class RootGrid extends Container {
 
         if(this.fitMode === WIDTH_MODE) {
             this.tileSize = width / this.subdivideLevel
-            this.tillingSizes.width = this.subdivideLevel
-            this.tillingSizes.height = Math.floor(height / this.tileSize)
-            this.scale.set(1, height / (this.tillingSizes.height * this.tileSize))
+            this.tillingSizes.x = this.subdivideLevel
+            this.tillingSizes.y = Math.floor(height / this.tileSize)
+            this.scale.set(1, height / (this.tillingSizes.y * this.tileSize))
         }
 
         if(this.fitMode === HEIGHT_MODE) {
             this.tileSize = height / this.subdivideLevel
-            this.tillingSizes.width = Math.floor(width / this.tileSize)
-            this.tillingSizes.height = this.subdivideLevel
-            this.scale.set(width / (this.tillingSizes.width * this.tileSize), 1)
+            this.tillingSizes.x = Math.floor(width / this.tileSize)
+            this.tillingSizes.y = this.subdivideLevel
+            this.scale.set(width / (this.tillingSizes.x * this.tileSize), 1)
         }
-
-        this.updateBackground()
 
         this.children.forEach(child => child.isTillingGrid && child.updateSizes())
     }

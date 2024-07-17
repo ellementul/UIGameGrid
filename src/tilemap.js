@@ -22,14 +22,12 @@ export class TileMap extends Container {
             tileLine.position.y = y * this.tileSizes.y
 
             this.tileLines.set(y, tileLine)
-
             this.addChild(tileLine)
             tileLine.zIndex = y
         }
-
+        
         const tile = this.tileLines.get(y).set(x, texture)
         tile.tilePosition.y = y
-
         return tile
     }
 
@@ -39,10 +37,8 @@ export class TileMap extends Container {
     }
 
     clear() {
-        this.forEach((tileLine, y) => {
-            tileLine.removeFromParent()
-            tileLine.clear()
-        })
+        this.removeChildren()
+        this.tileLines.clear()
     }
 
     update() {

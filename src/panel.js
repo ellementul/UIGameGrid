@@ -16,14 +16,11 @@ class Panel extends Grid {
         if(!this.parent || !this.parent.isTillingGrid)
             return
         
-        const [ x, width ] = this.calcPosize(this.posizes.left, this.posizes.right, this.parent.tillingSizes.width)
-        const [ y, height ] = this.calcPosize(this.posizes.top, this.posizes.bottom, this.parent.tillingSizes.height)
+        const [ x, width ] = this.calcPosize(this.posizes.left, this.posizes.right, this.parent.tillingSizes.x)
+        const [ y, height ] = this.calcPosize(this.posizes.top, this.posizes.bottom, this.parent.tillingSizes.y)
         
         this.tillingPosition.set(x, y)
-        this.tillingSizes = { 
-            width: width * this.subTilling, 
-            height: height * this.subTilling
-        }
+        this.tillingSizes.set(width * this.subTilling, height * this.subTilling)
 
         super.updateSizes()
     }

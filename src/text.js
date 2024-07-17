@@ -13,11 +13,11 @@ export function Text(options) {
             return
 
         this.style.wordWrap = true
-        this.style.wordWrapWidth = this.parent.tillingSizes.width * this.parent.tileSize
+        this.style.wordWrapWidth = this.parent.tillingSizes.x * this.parent.tileSize
 
         this.position.set(
-            this.parent.tillingSizes.width * this.parent.tileSize * this.anchor.x, 
-            this.parent.tillingSizes.height * this.parent.tileSize * this.anchor.y
+            this.parent.tillingSizes.x * this.parent.tileSize * this.anchor.x, 
+            this.parent.tillingSizes.y * this.parent.tileSize * this.anchor.y
         )
     }).bind(text)
 

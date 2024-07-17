@@ -13,7 +13,6 @@ export function UIMemberFactory () {
 
     member.rootGrid = new RootGrid(member.pixiApp)
     app.stage.addChild(member.rootGrid)
-    member.rootGrid.setBgDebug()
-
+    
     return member
 }

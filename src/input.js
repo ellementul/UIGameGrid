@@ -13,6 +13,8 @@ export class Input extends PixiInput {
         super(parentOptions)
 
         this.isTillingGrid = true
+
+        this.on('added', () => this.updateSizes(), this)
     }
 
     updateSizes() {
@@ -20,8 +22,8 @@ export class Input extends PixiInput {
             return
 
         this.bg.scale.set(
-            (this.parent.tillingSizes.width * this.parent.tileSize) / this.bg.texture.width,
-            (this.parent.tillingSizes.height * this.parent.tileSize) / this.bg.texture.height
+            (this.parent.tillingSizes.x * this.parent.tileSize) / this.bg.texture.width,
+            (this.parent.tillingSizes.y * this.parent.tileSize) / this.bg.texture.height
         )
 
         this.align()
