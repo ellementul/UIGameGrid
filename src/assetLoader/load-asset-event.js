@@ -1,9 +1,9 @@
 import { Types, EventFactory } from "@ellementul/uee-core"
 
 const type = Types.Object.Def({
-    system: "Pixijs",
-    action: "UploadAsset",
-    state: "Image"
+    system: "AssetsManagement",
+    action: "load",
+    source: "Host"
 }, true)
 
 export default EventFactory(type)

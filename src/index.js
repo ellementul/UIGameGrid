@@ -8,12 +8,7 @@ import { DebugBg } from "./backgrounds/debug-background.js"
 import { TillingBg } from "./backgrounds/tilling-background.js"
 import { NineTillingBg } from "./backgrounds/nine-tilling-bg.js"
 import { SetBgMixin } from "./backgrounds/bg-mixin.js"
-import uploadAssetEvent from "../src/assetLoader/upload-asset-event.js"
 import { UIMemberFactory } from "./ui-member.js"
-
-const events = {
-    uploadAssetEvent
-}
 
 export {
     Grid,
@@ -26,6 +21,5 @@ export {
     NineTillingBg,
     DebugBg,
     SetBgMixin,
-    UIMemberFactory,
-    events
+    UIMemberFactory
 }

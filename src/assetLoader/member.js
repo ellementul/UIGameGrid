@@ -1,15 +1,33 @@
 import { MemberFactory } from "@ellementul/uee-core"
-import uploadAssetEvent from "./upload-asset-event.js"
-import { showOpenAssetPicker } from "./picker.js"
+import uploadAssetEvent from "./upload-local-asset-event.js"
+import loadedAssetEvent from "./loaded-asset-event.js"
+import { Assets } from "pixi.js"
 
-export function AssetLoaderMember () {
-    const member = new MemberFactory
-    
-    member.onConnectRoom = () => {
-        member.subscribe(uploadAssetEvent, () => {
-            showOpenAssetPicker()
+export class AssetLoaderMember extends MemberFactory {
+    onConnectRoom() {
+        this.subscribe(uploadAssetEvent, ({ assetType, assetName }) => {
+            this.showOpenAssetPicker(assetType, assetName)
         })
     }
+
+    showOpenAssetPicker(assetType, assetName) {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = assetType
     
-    return member
+        input.addEventListener("change", () => {
+            const file = input.files[0]
+            const reader = new FileReader()
+
+            reader.addEventListener("load", async () => {
+                Assets.add({ alias: assetName, src: reader.result })
+                await Assets.load(assetName)
+                this.send(loadedAssetEvent, { assetName })
+            })
+
+            reader.readAsDataURL(file)
+        })
+    
+        input.click()
+    }
 }
