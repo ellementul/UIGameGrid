@@ -44,11 +44,22 @@ class Grid extends Container {
         this.onRender = null
     }
 
+    fit() {
+        this.fitX = true
+        this.fitY = true
+    }
+
     updateSizes() {
         if(!this.visible || !this.parent || !this.parent.isTilling)
             return
 
         this.tileSize = this.parent.tileSize / this.subTilling
+
+        if(this.fitX)
+            this.tillingSizes.x = this.parent.tillingSizes.x * this.subTilling
+
+        if(this.fitY)
+            this.tillingSizes.y = this.parent.tillingSizes.y * this.subTilling
 
         if(this.cache.width == this.tillingSizes.x
             && this.cache.height == this.tillingSizes.y
@@ -67,6 +78,7 @@ class Grid extends Container {
         this.cache.subTilling = this.subTilling
 
         this.position.set(this.tillingPosition.x * this.parent.tileSize, this.tillingPosition.y * this.parent.tileSize)
+
 
         this.children.forEach(child => child.isTilling && !child.isGrid && child.updateSizes())
     }

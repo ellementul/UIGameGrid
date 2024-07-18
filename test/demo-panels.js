@@ -29,8 +29,8 @@ export function DemoGrid(background) {
 
     const demoSubGrid = new Grid
     demoSubGrid.subTilling = 2
-    demoSubGrid.tillingPosition.set(1,1)
-    demoSubGrid.tillingSizes.x = 8
+    demoSubGrid.tillingPosition.set(0,1)
+    demoSubGrid.fitX = true
     demoSubGrid.tillingSizes.y = 8
     demoSubGrid.debug(true)
 
@@ -55,6 +55,13 @@ export function DemoPanel() {
     centerPanel.subTilling = 2
     centerPanel.debug(true)
     demoPanel.addChild(centerPanel)
+
+    const centerPanelWithSizes = new Panel
+    centerPanelWithSizes.subTilling = 2
+    centerPanelWithSizes.resetPosizes()
+    centerPanelWithSizes.tillingSizes.set(32,32)
+    centerPanelWithSizes.debug(true)
+    centerPanel.addChild(centerPanelWithSizes)
 
 
     const topPanel = new Panel
