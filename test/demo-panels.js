@@ -1,7 +1,26 @@
-import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg } from "../src/index.js"
+import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button } from "../src/index.js"
 
 
-export function DemoGrid() {
+function VisibleButton(background, text) {
+    const button = new Button
+    button.subTilling = 2
+    button.tillingSizes.set(6, 2)
+    button.setBg(new NineTillingBg(background))
+
+    const label = new Text({
+        text,
+        style: {
+            fontFamily: 'Pixel',
+            fontSize: 18,
+        }
+    })
+
+    button.addChild(label)
+
+    return button
+}
+
+export function DemoGrid(background) {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
     demoGrid.tillingSizes.x = 8
@@ -16,6 +35,14 @@ export function DemoGrid() {
     demoSubGrid.debug(true)
 
     demoGrid.addChild(demoSubGrid)
+
+    const showButton = new VisibleButton(background, "Show")
+    showButton.onPress = () => demoSubGrid.show()
+    const hideButton = new VisibleButton(background, "Hide")
+    hideButton.onPress = () => demoSubGrid.hide()
+    hideButton.tillingPosition.x = 3
+
+    demoGrid.addChild(showButton, hideButton)
 
     return demoGrid
 }

@@ -7,8 +7,10 @@ class Grid extends Container {
     constructor() {
         super()
 
-        this.isTillingGrid = true
+        this.isTilling = true
+        this.isGrid = true
 
+        this.isShow = true
         this.tileSize = 1
         this.subTilling = 1
         this.tillingSizes = new Point(1, 1)
@@ -24,7 +26,7 @@ class Grid extends Container {
         }
 
         this.on('added', () => this.updateSizes(), this)
-        this.onRender = () => this.updateSizes()
+        this.show()
 
         this.mask = new SpriteBg(Texture.WHITE)
         this.addChild(this.mask)
@@ -32,8 +34,18 @@ class Grid extends Container {
         SetBgMixin(this)
     }
 
+    show() {
+        this.visible = true
+        this.onRender = () => this.updateSizes()
+    }
+
+    hide() {
+        this.visible = false
+        this.onRender = null
+    }
+
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.visible || !this.parent || !this.parent.isTilling)
             return
 
         this.tileSize = this.parent.tileSize / this.subTilling
@@ -56,7 +68,7 @@ class Grid extends Container {
 
         this.position.set(this.tillingPosition.x * this.parent.tileSize, this.tillingPosition.y * this.parent.tileSize)
 
-        this.children.forEach(child => child.isTillingGrid && child.updateSizes())
+        this.children.forEach(child => child.isTilling && !child.isGrid && child.updateSizes())
     }
 }
 

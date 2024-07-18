@@ -32,7 +32,7 @@ const bgInput = await Assets.load('bgInput3x3.png')
 
 
 const panels = new Map([
-    ["Grid", new DemoGrid],
+    ["Grid", new DemoGrid(background3x3)],
     ["Panel", new DemoPanel],
     ["Background", new DemoBackground(background3x3)],
     ["Text", new DemoText(bgInput)],

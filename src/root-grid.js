@@ -12,7 +12,8 @@ class RootGrid extends Container {
     constructor(app) {
         super()
 
-        this.isTillingGrid = true
+        this.isTilling = true
+        this.isGrid = true
 
         this.app = app
 
@@ -56,7 +57,7 @@ class RootGrid extends Container {
             this.scale.set(width / (this.tillingSizes.x * this.tileSize), 1)
         }
 
-        this.children.forEach(child => child.isTillingGrid && child.updateSizes())
+        this.children.forEach(child => child.isTilling && !child.isGrid && child.updateSizes())
     }
 
     setSubdivide(subdivideLevel, fitMode) {

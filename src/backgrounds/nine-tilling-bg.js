@@ -5,7 +5,7 @@ export class NineTillingBg extends TileMap {
     constructor(texture) {
         super()
 
-        this.isTillingGrid = true
+        this.isTilling = true
         this.isBackground = true
 
         const source = texture.source
@@ -18,7 +18,7 @@ export class NineTillingBg extends TileMap {
     }
 
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
 
         if(!this.tillingSizes.equals(this.parent.tillingSizes)) {

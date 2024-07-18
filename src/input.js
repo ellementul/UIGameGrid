@@ -12,13 +12,13 @@ export class Input extends PixiInput {
 
         super(parentOptions)
 
-        this.isTillingGrid = true
+        this.isTilling = true
 
         this.on('added', () => this.updateSizes(), this)
     }
 
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
 
         this.bg.scale.set(

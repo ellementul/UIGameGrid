@@ -13,7 +13,7 @@ class Panel extends Grid {
     }
 
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
         
         const [ x, width ] = this.calcPosize(this.posizes.left, this.posizes.right, this.parent.tillingSizes.x)

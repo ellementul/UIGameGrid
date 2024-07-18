@@ -4,7 +4,7 @@ export class DebugBg extends Graphics {
     constructor() {
         super(...arguments)
 
-        this.isTillingGrid = true
+        this.isTilling = true
         this.isBackground = true
 
         this.alpha = 0.5
@@ -14,7 +14,7 @@ export class DebugBg extends Graphics {
     }
 
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
 
         this.clear()

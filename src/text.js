@@ -4,12 +4,12 @@ export function Text(options) {
 
     const text = new PixiText(options)
 
-    text.isTillingGrid = true
+    text.isTilling = true
     text.anchor.set(0.5)
 
 
     text.updateSizes = (function () {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
 
         this.style.wordWrap = true

@@ -4,7 +4,7 @@ export class SpriteBg extends Sprite {
     constructor() {
         super(...arguments)
 
-        this.isTillingGrid = true
+        this.isTilling = true
         this.isBackground = true
 
         this.on('added', () => this.updateSizes())
@@ -16,7 +16,7 @@ export class SpriteBg extends Sprite {
     }
 
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
 
         this.scale.set(

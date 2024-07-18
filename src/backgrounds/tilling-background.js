@@ -5,7 +5,7 @@ export class TillingBg extends TileMap {
     constructor(texture) {
         super()
 
-        this.isTillingGrid = true
+        this.isTilling = true
         this.isBackground = true
 
         texture.source.scaleMode = DEPRECATED_SCALE_MODES.NEAREST
@@ -18,7 +18,7 @@ export class TillingBg extends TileMap {
     }
 
     updateSizes() {
-        if(!this.parent || !this.parent.isTillingGrid)
+        if(!this.parent || !this.parent.isTilling)
             return
 
         if(!this.tillingSizes.equals(this.parent.tillingSizes)) {
