@@ -1,5 +1,6 @@
 import { Grid } from "./grid.js"
 import { Panel } from "./panel.js"
+import { Column } from "./column.js"
 import { Button } from "./button.js"
 import { Text } from "./text.js"
 import { Input } from "./input.js"
@@ -13,6 +14,7 @@ import { UIMemberFactory } from "./ui-member.js"
 export {
     Grid,
     Panel,
+    Column,
     Button,
     Text,
     Input,

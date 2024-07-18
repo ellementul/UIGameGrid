@@ -1,4 +1,4 @@
-import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button } from "../src/index.js"
+import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button, Column } from "../src/index.js"
 
 
 function VisibleButton(background, text) {
@@ -52,7 +52,6 @@ export function DemoPanel() {
     demoPanel.debug(true)
 
     const centerPanel = new Panel
-    centerPanel.subTilling = 2
     centerPanel.debug(true)
     demoPanel.addChild(centerPanel)
 
@@ -63,6 +62,10 @@ export function DemoPanel() {
     centerPanelWithSizes.debug(true)
     centerPanel.addChild(centerPanelWithSizes)
 
+    const column = new Column
+    column.subTilling = 2
+    column.debug(true)
+    centerPanelWithSizes.addChild(column)
 
     const topPanel = new Panel
     topPanel.subTilling = 3
