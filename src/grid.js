@@ -1,6 +1,7 @@
 import { NONE_MODE, WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
 import { SetBgMixin } from "./backgrounds/bg-mixin.js"
-import { Container, Point } from "pixi.js"
+import { Container, Graphics, Point, Texture } from "pixi.js"
+import { SpriteBg } from "./backgrounds/sprite-background.js"
 
 class Grid extends Container {
     constructor() {
@@ -8,8 +9,6 @@ class Grid extends Container {
 
         this.isTillingGrid = true
 
-        
-        
         this.tileSize = 1
         this.subTilling = 1
         this.tillingSizes = new Point(1, 1)
@@ -26,6 +25,9 @@ class Grid extends Container {
 
         this.on('added', () => this.updateSizes(), this)
         this.onRender = () => this.updateSizes()
+
+        this.mask = new SpriteBg(Texture.WHITE)
+        this.addChild(this.mask)
 
         SetBgMixin(this)
     }
