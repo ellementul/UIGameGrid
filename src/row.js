@@ -14,7 +14,7 @@ export class Row extends Grid {
             return
 
         this.tillingSizes.y = this.parent.tillingSizes.y * this.partSize * this.subTilling
-        this.tillingPosition.y = this.tillingSizes.y * this.rowNumber
+        this.tillingPosition.y = this.tillingSizes.y * this.partSize * this.rowNumber
 
         super.updateSizes()
     }

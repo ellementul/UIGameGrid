@@ -4,7 +4,7 @@ import { Container, Graphics, Point, Texture } from "pixi.js"
 import { SpriteBg } from "./backgrounds/sprite-background.js"
 
 class Grid extends Container {
-    constructor() {
+    constructor({ isMask = true } = {}) {
         super()
 
         this.isTilling = true
@@ -28,8 +28,10 @@ class Grid extends Container {
         this.on('added', () => this.updateSizes(), this)
         this.show()
 
-        this.mask = new SpriteBg(Texture.WHITE)
-        this.addChild(this.mask)
+        if(isMask){
+            this.mask = new SpriteBg(Texture.WHITE)
+            this.addChild(this.mask)
+        } 
 
         SetBgMixin(this)
     }

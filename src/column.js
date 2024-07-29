@@ -14,7 +14,7 @@ export class Column extends Grid {
             return
 
         this.tillingSizes.x = this.parent.tillingSizes.x * this.partSize * this.subTilling
-        this.tillingPosition.x = this.tillingSizes.x * this.columnNumber
+        this.tillingPosition.x = this.tillingSizes.x * this.partSize * this.columnNumber
 
         super.updateSizes()
     }

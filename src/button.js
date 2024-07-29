@@ -1,13 +1,16 @@
 import { Grid } from "./grid.js"
 
-export function Button() {
-    const button = new Grid()
-
-    button.eventMode = "static"
-    button.on('click', event => {
-        if(typeof button.onPress == "function")
-            button.onPress(event)
+export function ButtonMixin(component) {
+    
+    component.eventMode = "static"
+    component.on('click', event => {
+        if(typeof component.onPress == "function")
+            component.onPress(event)
     })
 
-    return button
+    return component
+} 
+
+export function Button() {
+    return ButtonMixin(new Grid())
 } 

@@ -2,6 +2,7 @@ import { Grid } from "./grid.js"
 import { Panel } from "./panel.js"
 import { Column } from "./column.js"
 import { Row } from "./row.js"
+import { SliderMixin, VerticalSlider, HorizontalSlider } from "./slider.js"
 import { Button } from "./button.js"
 import { Text } from "./text.js"
 import { Input } from "./input.js"
@@ -17,6 +18,9 @@ export {
     Panel,
     Column,
     Row,
+    SliderMixin,
+    VerticalSlider,
+    HorizontalSlider,
     Button,
     Text,
     Input,

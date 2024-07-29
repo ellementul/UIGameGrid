@@ -1,4 +1,4 @@
-import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button, Column, Row } from "../src/index.js"
+import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button, Column, Row, VerticalSlider, HorizontalSlider, SliderMixin } from "../src/index.js"
 
 
 function VisibleButton(background, text) {
@@ -20,6 +20,45 @@ function VisibleButton(background, text) {
     return button
 }
 
+function DemoHorSlider() {
+    const horSlider = SliderMixin(new Column)
+    horSlider.subTilling = 2
+    horSlider.columnNumber = 1
+    horSlider.scrollOffsetLimit = 7
+    horSlider.debug(true)
+
+    const demoSubGrid = new Grid
+    demoSubGrid.subTilling = 2
+    demoSubGrid.tillingPosition.set(0, 1)
+    demoSubGrid.tillingSizes.set(8, 32)
+    demoSubGrid.debug(true)
+
+    horSlider.addChild(demoSubGrid)
+
+    return horSlider
+}
+
+function DemoVertSlider() {
+    const verticalSlider = new VerticalSlider
+    verticalSlider.subTilling = 2
+    verticalSlider.tillingPosition.set(0,1)
+    verticalSlider.fitX = true
+    verticalSlider.tillingSizes.y = 8
+    verticalSlider.scrollOffsetLimit = 4
+    verticalSlider.debug(true)
+
+    const demoSubGrid = new Grid
+    demoSubGrid.subTilling = 2
+    demoSubGrid.tillingPosition.set(0, 1)
+    demoSubGrid.tillingSizes.set(8, 32)
+    demoSubGrid.debug(true)
+
+    verticalSlider.addChild(demoSubGrid)
+    verticalSlider.addChild(new DemoHorSlider)
+
+    return verticalSlider
+}
+
 export function DemoGrid(background) {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
@@ -27,20 +66,15 @@ export function DemoGrid(background) {
     demoGrid.tillingSizes.y = 8  
     demoGrid.debug(true)
 
-    const demoSubGrid = new Grid
-    demoSubGrid.subTilling = 2
-    demoSubGrid.tillingPosition.set(0,1)
-    demoSubGrid.fitX = true
-    demoSubGrid.tillingSizes.y = 8
-    demoSubGrid.debug(true)
-
-    demoGrid.addChild(demoSubGrid)
+    const vertSlider = new DemoVertSlider
+    demoGrid.addChild(vertSlider)
 
     const showButton = new VisibleButton(background, "Show")
-    showButton.onPress = () => demoSubGrid.show()
     const hideButton = new VisibleButton(background, "Hide")
-    hideButton.onPress = () => demoSubGrid.hide()
     hideButton.tillingPosition.x = 3
+
+    showButton.onPress = () => vertSlider.show()
+    hideButton.onPress = () => vertSlider.hide()
 
     demoGrid.addChild(showButton, hideButton)
 
