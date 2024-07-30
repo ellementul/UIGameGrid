@@ -21,14 +21,13 @@ export function SwitchPanel(member, panelNames, background) {
 function SwitchPanelButton(text, background) {
     const button = new Button
     button.subTilling = 2
-    button.tillingSizes.set(0.5 * text.length * button.subTilling + button.subTilling, button.subTilling)
+    button.tillingSizes.set(0.5 * button.subTilling * (text.length + 1), button.subTilling)
     button.setBg(new NineTillingBg(background))
 
     const label = new Text({
         text,
         style: {
-            fontFamily: 'Pixel',
-            fontSize: 24,
+            fontFamily: 'Pixel'
         }
     })
     button.addChild(label)

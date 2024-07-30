@@ -4,6 +4,8 @@ export function Text(options) {
 
     const text = new PixiText(options)
 
+    const { style: { fontSize } } = options
+
     text.isTilling = true
     text.anchor.set(0.5)
 
@@ -11,6 +13,9 @@ export function Text(options) {
     text.updateSizes = (function () {
         if(!this.parent || !this.parent.isTilling)
             return
+
+        if(!fontSize)
+            this.style.fontSize = this.parent.tileSize * 0.8
 
         this.style.wordWrap = true
         this.style.wordWrapWidth = this.parent.tillingSizes.x * this.parent.tileSize
