@@ -1,7 +1,6 @@
-import { NONE_MODE, WIDTH_MODE, HEIGHT_MODE } from "./consts.js"
-import { SetBgMixin } from "./backgrounds/bg-mixin.js"
-import { Container, Graphics, Point, Texture } from "pixi.js"
-import { SpriteBg } from "./backgrounds/sprite-background.js"
+import { SetBgMixin } from "../backgrounds/bg-mixin.js"
+import { Container, Point, Texture } from "pixi.js"
+import { SpriteBg } from "../backgrounds/sprite-background.js"
 
 class Grid extends Container {
     constructor({ isMask = true } = {}) {
@@ -83,6 +82,8 @@ class Grid extends Container {
 
 
         this.children.forEach(child => child.isTilling && !child.isGrid && child.updateSizes())
+
+        return true
     }
 }
 

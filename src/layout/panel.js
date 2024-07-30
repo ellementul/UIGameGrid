@@ -29,7 +29,7 @@ class Panel extends Grid {
         this.tillingPosition.set(x, y)
         this.tillingSizes.set(width, height)
 
-        super.updateSizes()
+        return super.updateSizes()
     }
 
     calcPosize(begin, end, size, limit) {
