@@ -1,16 +1,17 @@
-import { Text, Grid, Panel, Button, NineTillingBg, DynamicListMixin } from "../src/index.js"
-
+import { Assets } from "pixi.js"
+import { Text, Panel, Button, NineTillingBg, DynamicListMixin } from "../src/index.js"
+import { uiMember } from "../src/index.js"
 import switchEvent from "./switch-panels-event.js"
 
 
-export function SwitchPanel(member, panelNames, background) {
+export function SwitchPanel(panelNames) {
     const panel = new Panel
     DynamicListMixin(panel, false)
     panel.posizes.top = 0
 
     panelNames.forEach((namePanel, index) => {
-        const button = new SwitchPanelButton(namePanel, background)
-        button.onPress = () => member.send(switchEvent, { state: namePanel })
+        const button = new SwitchPanelButton(namePanel, Assets.get("bgButton"))
+        button.onPress = () => uiMember.send(switchEvent, { state: namePanel })
         panel.addChild(button)
     })
 

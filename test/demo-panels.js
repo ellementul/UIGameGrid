@@ -1,4 +1,5 @@
-import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button, Column, Row, VerticalSlider, HorizontalSlider, SliderMixin } from "../src/index.js"
+import { Assets } from "pixi.js"
+import { Grid, Input, Panel, SpriteBg, TillingBg, Text, NineTillingBg, Button, Column, Row, VerticalSlider, SliderMixin } from "../src/index.js"
 
 
 function VisibleButton(background, text) {
@@ -59,7 +60,7 @@ function DemoVertSlider() {
     return verticalSlider
 }
 
-export function DemoGrid(background) {
+export function DemoGrid() {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
     demoGrid.tillingSizes.x = 8
@@ -69,8 +70,8 @@ export function DemoGrid(background) {
     const vertSlider = new DemoVertSlider
     demoGrid.addChild(vertSlider)
 
-    const showButton = new VisibleButton(background, "Show")
-    const hideButton = new VisibleButton(background, "Hide")
+    const showButton = new VisibleButton(Assets.get("bgButton"), "Show")
+    const hideButton = new VisibleButton(Assets.get("bgButton"), "Hide")
     hideButton.tillingPosition.x = 3
 
     showButton.onPress = () => vertSlider.show()
@@ -155,11 +156,12 @@ export function DemoPanel() {
     return demoPanel
 }
 
-export function DemoBackground(background) {
+export function DemoBackground() {
     const demoPanel = new Panel
 
     const centerPanel = new Panel
-    centerPanel.setBg(new TillingBg(background))
+    const bg = new TillingBg(Assets.get("bgButton"))
+    centerPanel.setBg(bg)
     demoPanel.addChild(centerPanel)
 
 
@@ -167,14 +169,14 @@ export function DemoBackground(background) {
     topPanel.subTilling = 2
     topPanel.posizes.top = 0
     topPanel.posizes.bottom = 1
-    topPanel.setBg(new NineTillingBg(background))
+    topPanel.setBg(new NineTillingBg(Assets.get("bgButton")))
     demoPanel.addChild(topPanel)
 
     const leftPanel = new Panel
     leftPanel.subTilling = 2
     leftPanel.posizes.left = 0
     leftPanel.posizes.right = 1
-    leftPanel.setBg(new NineTillingBg(background))
+    leftPanel.setBg(new NineTillingBg(Assets.get("bgButton")))
     demoPanel.addChild(leftPanel)
 
     const leftTopAngle = new Panel
@@ -183,7 +185,7 @@ export function DemoBackground(background) {
     leftTopAngle.posizes.right = 1
     leftTopAngle.posizes.top = 0
     leftTopAngle.posizes.bottom = 1
-    leftTopAngle.setBg(background)
+    leftTopAngle.setBg(Assets.get("bgButton"))
     demoPanel.addChild(leftTopAngle)
 
 
@@ -193,13 +195,13 @@ export function DemoBackground(background) {
     rightBottomAngle.posizes.right = 0
     rightBottomAngle.posizes.top = 1
     rightBottomAngle.posizes.bottom = 0
-    rightBottomAngle.setBg(new SpriteBg(background))
+    rightBottomAngle.setBg(new SpriteBg(Assets.get("bgButton")))
     demoPanel.addChild(rightBottomAngle)
 
     return demoPanel
 }
 
-export function DemoText(bgInput) {
+export function DemoText() {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
     demoGrid.tillingSizes.x = 8
@@ -214,7 +216,7 @@ export function DemoText(bgInput) {
     inputPanel.posizes.bottom = 1
     inputPanel.posizes.right = 0.5
     inputPanel.posizes.left = 0.5
-    inputPanel.setBg(new NineTillingBg(bgInput))
+    inputPanel.setBg(new NineTillingBg(Assets.get("bgInput")))
     demoGrid.addChild(inputPanel)
 
     const input = new Input({

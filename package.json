@@ -17,14 +17,16 @@
         "build": "webpack"
     },
     "devDependencies": {
+        "node-static": "^0.7.11",
         "webpack": "^5.92.1",
-        "webpack-cli": "^5.1.4",
-        "node-static": "^0.7.11"
+        "webpack-cli": "^5.1.4"
     },
     "dependencies": {
-        "@ellementul/uee-core": "^3.4.0",
+        "@ellementul/uee-core": "^3.6.0",
+        "@ellementul/uee-local-loader": "^1.1.0",
         "@pixi/tilemap": "^5.0.1",
         "@pixi/ui": "^2.1.2",
+        "imagescript": "github:matmen/ImageScript#browser",
         "pixi-viewport": "^5.0.3",
         "pixi.js": "^8.2.0",
         "stats.js": "^0.17.0"

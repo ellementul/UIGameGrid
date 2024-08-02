@@ -12,7 +12,14 @@ import { DebugBg } from "./backgrounds/debug-background.js"
 import { TillingBg } from "./backgrounds/tilling-background.js"
 import { NineTillingBg } from "./backgrounds/nine-tilling-bg.js"
 import { SetBgMixin } from "./backgrounds/bg-mixin.js"
-import { UIMemberFactory } from "./ui-member.js"
+import { UIMember } from "./ui-member.js"
+import { event as loadedEvent } from "./events/loaded-asset-event.js"
+
+const events = {
+    loaded: loadedEvent
+}
+
+const uiMember = new UIMember
 
 export {
     Grid,
@@ -32,5 +39,6 @@ export {
     NineTillingBg,
     DebugBg,
     SetBgMixin,
-    UIMemberFactory
+    uiMember,
+    events
 }
