@@ -1,6 +1,6 @@
 import { Types, EventFactory } from "@ellementul/uee-core"
 
-export const panelNames = ["Grid", "Panel", "Background", "Text", "Assets"]
+export const panelNames = ["Grid", "Panel", "Background", "Slider", "Text", "Assets"]
 
 const type = Types.Object.Def({
     system: "UI",

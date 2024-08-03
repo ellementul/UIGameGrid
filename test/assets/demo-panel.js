@@ -1,6 +1,6 @@
 import { Assets, Texture, Sprite } from "pixi.js"
 
-import { uiMember, events as UIEvents, VerticalSlider, VerticalDynamicList, Grid, SliderMixin } from "../../src/index.js"
+import { uiMember, VerticalSlider, } from "../../src/index.js"
 import { events as loaderEvents } from "@ellementul/uee-local-loader"
 import { Button, NineTillingBg, Panel, Text } from "../../src/index.js"
 import { event as shareListOfImagesEvent } from "./events/share-images-list-event.js"
