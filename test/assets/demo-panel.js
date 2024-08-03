@@ -1,6 +1,6 @@
-import { Assets, Texture } from "pixi.js"
+import { Assets, Texture, Sprite } from "pixi.js"
 
-import { uiMember, events as UIEvents, VerticalSlider, VerticalDynamicList } from "../../src/index.js"
+import { uiMember, events as UIEvents, VerticalSlider, VerticalDynamicList, Grid, SliderMixin } from "../../src/index.js"
 import { events as loaderEvents } from "@ellementul/uee-local-loader"
 import { Button, NineTillingBg, Panel, Text } from "../../src/index.js"
 import { event as shareListOfImagesEvent } from "./events/share-images-list-event.js"
@@ -23,12 +23,22 @@ function LoadButton(text) {
     return button
 }
 
-function ImagesList() {
+function ImagesList(setBg) {
     const list = new VerticalSlider
     list.tillingSizes.set(8, 10)
     list.autoPosition = true
 
-    list.strip.addChild(new LoadButton("ImageResource"))
+    let images = new Map
+    list.setImages = newImages => {
+        newImages.forEach(imageName => {
+            if(!images.has(imageName)) {
+                const button = new LoadButton(imageName)
+                button.onPress = () => setBg(new Texture({ source: Assets.get(imageName) }))
+                list.strip.addChild(button)
+                images.set(imageName, button)
+            }
+        })
+    }
 
     return list
 }
@@ -43,12 +53,16 @@ export function DemoAssets() {
 
     panel.addChild(button)
 
-    const list = new ImagesList
+    const imagePanel = new Panel
+    imagePanel.posizes.left = 9
+    panel.addChild(imagePanel)
+    
+    const list = new ImagesList(texture => imagePanel.addChild(new Sprite(texture)))
     list.tillingPosition.set(0, 2)
     panel.addChild(list)
 
-    uiMember.subscribe(shareListOfImagesEvent, (event) => {
-        console.log(event)
+    uiMember.subscribe(shareListOfImagesEvent, ({ images }) => {
+        list.setImages(images)
     })
 
     return panel
