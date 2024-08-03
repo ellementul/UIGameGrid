@@ -38,5 +38,5 @@ uiMember.subscribe(switchEvent, ({ state: namePanel }) => {
     listPanels.showPanel(namePanel)
 })
 
-uiMember.rootGrid.addChild(listPanels)
 uiMember.rootGrid.addChild(new SwitchPanel([...panels.keys()]))
+uiMember.rootGrid.addChild(listPanels)

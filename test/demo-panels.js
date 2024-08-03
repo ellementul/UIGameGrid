@@ -25,16 +25,17 @@ function DemoHorSlider() {
     const horSlider = SliderMixin(new Column)
     horSlider.subTilling = 2
     horSlider.columnNumber = 1
-    horSlider.scrollOffsetLimit = 7
+    horSlider.tillingSizes.y = 8
+    horSlider.scrollOffsetLimit = 8
     horSlider.debug(true)
 
     const demoSubGrid = new Grid
     demoSubGrid.subTilling = 2
-    demoSubGrid.tillingPosition.set(0, 1)
-    demoSubGrid.tillingSizes.set(8, 32)
+    demoSubGrid.tillingPosition.set(8, 0)
+    demoSubGrid.tillingSizes.set(64, 32)
     demoSubGrid.debug(true)
 
-    horSlider.addChild(demoSubGrid)
+    horSlider.strip.addChild(demoSubGrid)
 
     return horSlider
 }
@@ -50,12 +51,12 @@ function DemoVertSlider() {
 
     const demoSubGrid = new Grid
     demoSubGrid.subTilling = 2
-    demoSubGrid.tillingPosition.set(0, 1)
-    demoSubGrid.tillingSizes.set(8, 32)
+    demoSubGrid.tillingPosition.set(0, 4)
+    demoSubGrid.tillingSizes.set(8, 16)
     demoSubGrid.debug(true)
 
-    verticalSlider.addChild(demoSubGrid)
-    verticalSlider.addChild(new DemoHorSlider)
+    verticalSlider.strip.addChild(demoSubGrid)
+    verticalSlider.strip.addChild(new DemoHorSlider)
 
     return verticalSlider
 }
@@ -63,8 +64,8 @@ function DemoVertSlider() {
 export function DemoGrid() {
     const demoGrid = new Grid
     demoGrid.tillingPosition.set(1,1)
-    demoGrid.tillingSizes.x = 8
-    demoGrid.tillingSizes.y = 8  
+    demoGrid.tillingSizes.x = 16
+    demoGrid.tillingSizes.y = 16  
     demoGrid.debug(true)
 
     const vertSlider = new DemoVertSlider

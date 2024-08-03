@@ -4,6 +4,8 @@ class Panel extends Grid {
     constructor() {
         super()
 
+        this.isPanel = true
+
         this.posizes = {
             left: 1,
             right: 1,

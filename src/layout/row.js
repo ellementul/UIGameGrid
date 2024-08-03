@@ -4,6 +4,8 @@ export class Row extends Grid {
     constructor() {
         super()
 
+        this.isRow = true
+
         this.partSize = 0.5
         this.rowNumber = 0
         this.fitX = true

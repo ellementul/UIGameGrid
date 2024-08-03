@@ -1,7 +1,10 @@
 import { MemberFactory } from "@ellementul/uee-core"
+import { decode } from "imagescript"
+
 import { event as loadedFileEvent, MIME_TYPES } from "./events/loaded-event.js"
 import { event as addedAsset, ASSETS_TYPES } from "./events/added-asset-event.js"
-import { decode } from "imagescript"
+import { event as shareListEvent } from "./events/share-assets-list-event.js"
+
 
 export class AssetsManagerMember extends MemberFactory {
     constructor() {
@@ -22,26 +25,6 @@ export class AssetsManagerMember extends MemberFactory {
         })
     }
 
-    // showOpenAssetPicker(assetType, assetName) {
-    //     const input = document.createElement("input");
-    //     input.type = "file";
-    //     input.accept = assetType
-    
-    //     input.addEventListener("change", () => {
-    //         const file = input.files[0]
-    //         const reader = new FileReader()
-
-    //         reader.addEventListener("load", async () => {
-    //             await this.getImageFromBuffer(assetName, reader.result)
-    //             await this.addTexture(assetName)
-    //         })
-
-    //         reader.readAsArrayBuffer(file)
-    //     })
-
-    //     input.click()
-    // }
-
     async getImageFromBuffer(assetName, buffer) {
         const image = await decode(buffer)
         const png = await image.encode()
@@ -54,6 +37,25 @@ export class AssetsManagerMember extends MemberFactory {
                 data: png
             }
         })
+        this.sendListOfAssets({ type: ASSETS_TYPES.image })
+    }
+
+    sendListOfAssets({ type }) {
+        const payload = { type }
+
+        switch (type) {
+            case ASSETS_TYPES.image:
+                payload.images = this.getListImages()
+                break;
+            default:
+                break;
+        }
+
+        this.send(shareListEvent, payload)
+    }
+
+    getListImages() {
+        return [...this.assets.images.keys()]
     }
 
     // async addTexture(assetName) {

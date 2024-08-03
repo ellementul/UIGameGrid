@@ -1,8 +1,9 @@
 import { Assets, Texture } from "pixi.js"
 
-import { uiMember, events as UIEvents } from "../../src/index.js"
+import { uiMember, events as UIEvents, VerticalSlider, VerticalDynamicList } from "../../src/index.js"
 import { events as loaderEvents } from "@ellementul/uee-local-loader"
 import { Button, NineTillingBg, Panel, Text } from "../../src/index.js"
+import { event as shareListOfImagesEvent } from "./events/share-images-list-event.js"
 
 function LoadButton() {
     const text = "Download Asset"
@@ -24,6 +25,15 @@ function LoadButton() {
     return button
 }
 
+function ImagesList() {
+    const list = new VerticalSlider
+    list.fitX = true
+    list.tillingSizes.y = 10
+    list.strip.addChild(new LoadButton)
+
+    return list
+}
+
 export function DemoAssets() {
     const panel = new Panel
     panel.debug(true)
@@ -34,11 +44,12 @@ export function DemoAssets() {
 
     panel.addChild(button)
 
-    uiMember.subscribe(UIEvents.loaded, ({ name }) => {
-        const bgTexture = new Texture({ source: Assets.get(name) })
-        
-        panel.debug()
-        panel.setBg(bgTexture)
+    const list = new ImagesList
+    list.tillingPosition.set(0, 2)
+    panel.addChild(list)
+
+    uiMember.subscribe(shareListOfImagesEvent, (event) => {
+        console.log(event)
     })
 
     return panel

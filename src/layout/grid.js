@@ -85,6 +85,24 @@ class Grid extends Container {
 
         return true
     }
+
+    get prevItem () {
+        if(!this.parent)
+            return
+
+        const index = this.parent.children.indexOf(this)
+
+        return this.parent.children[index - 1]
+    }
+
+    get nextItem () {
+        if(!this.parent)
+            return null
+
+        const index = this.parent.children.indexOf(this)
+
+        return this.parent.children[index + 1] || null
+    }
 }
 
 export { Grid } 

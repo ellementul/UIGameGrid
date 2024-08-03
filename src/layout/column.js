@@ -4,6 +4,8 @@ export class Column extends Grid {
     constructor() {
         super()
 
+        this.isColumn = true
+
         this.partSize = 0.5
         this.columnNumber = 0
         this.fitY = true

@@ -3,7 +3,6 @@ import { Panel } from "./layout/panel.js"
 import { Column } from "./layout/column.js"
 import { Row } from "./layout/row.js"
 import { SliderMixin, VerticalSlider, HorizontalSlider } from "./layout/slider.js"
-import { DynamicList, DynamicListMixin } from "./layout/list.js"
 import { Button } from "./button.js"
 import { Text } from "./text.js"
 import { Input } from "./input.js"
@@ -29,8 +28,6 @@ export {
     SliderMixin,
     VerticalSlider,
     HorizontalSlider,
-    DynamicListMixin,
-    DynamicList,
     Button,
     Text,
     Input,
