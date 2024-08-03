@@ -5,9 +5,7 @@ import { events as loaderEvents } from "@ellementul/uee-local-loader"
 import { Button, NineTillingBg, Panel, Text } from "../../src/index.js"
 import { event as shareListOfImagesEvent } from "./events/share-images-list-event.js"
 
-function LoadButton() {
-    const text = "Download Asset"
-
+function LoadButton(text) {
     const button = new Button
     button.subTilling = 2
     button.tillingSizes.set(0.5 * button.subTilling * (text.length + 1), button.subTilling)
@@ -27,9 +25,10 @@ function LoadButton() {
 
 function ImagesList() {
     const list = new VerticalSlider
-    list.fitX = true
-    list.tillingSizes.y = 10
-    list.strip.addChild(new LoadButton)
+    list.tillingSizes.set(8, 10)
+    list.autoPosition = true
+
+    list.strip.addChild(new LoadButton("ImageResource"))
 
     return list
 }
@@ -38,7 +37,7 @@ export function DemoAssets() {
     const panel = new Panel
     panel.debug(true)
 
-    const button = new LoadButton
+    const button = new LoadButton("Download Asset")
 
     button.onPress = () => uiMember.send(loaderEvents.load)
 

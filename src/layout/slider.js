@@ -116,7 +116,6 @@ function SliderItemMixin(component) {
     const superUpdateSizes = component.updateSizes.bind(component)
     component.updateSizes = function () {
         if(this?.isGrid) {
-            
             this.fitX = this.autoPos && this.listAxis == 'y'
             this.fitY = this.autoPos && this.listAxis != 'y'
 
@@ -130,11 +129,10 @@ function SliderItemMixin(component) {
             this.parent.maxPosizeItem = Math.max(this.parent.maxPosizeItem, posize)
 
             if(this.autoPos) {
-                console.log('autoPos')
                 const prevItem = this.prevItem
 
                 if(prevItem?.isGrid) {
-                    if(this.isVertical) {
+                    if(this.listAxis == 'y') {
                         this.tillingPosition.x = 0
                         this.tillingPosition.y = prevItem.tillingPosition.y + (prevItem.tillingSizes.y / prevItem.subTilling)
                     }
